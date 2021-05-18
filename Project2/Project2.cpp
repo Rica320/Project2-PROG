@@ -2,6 +2,42 @@
 //
 
 #include <iostream>
+#include "Header1.h"
+
+Player::Player(int row, int col, char symbol)
+{
+
+}
+
+int Player::getRow() const
+{
+
+}
+
+int Player::getCol() const
+{
+
+}
+
+char Player::getSymbol() const
+{
+
+}
+
+bool Player::isAlive() const
+{
+
+}
+
+void Player::setAsDead()
+{
+
+}
+
+bool Player::move(Movement delta)
+{
+
+}
 
 int main()
 {
