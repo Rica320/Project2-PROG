@@ -7,7 +7,9 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
+*/
 #include <vector>
+/*
 #include <cctype>
 #include <ctime>
 */
@@ -54,6 +56,53 @@ bool Player::move(Movement delta)
 {
 	//?
 }
+///////////////////////////////////////////////////////////////////////////////
+
+//enum State { ALIVE, STUCK, DEAD };
+
+Robot::Robot(int row, int col)
+{
+	this->row = row;
+	this->col = col;
+}
+
+int Robot::getID() const
+{
+	return id;
+}
+
+char Robot::getSymbol() const
+{
+	// get char representation of robot (R if alive, r if dead)
+	/*if (isAlive())
+		return 'R';
+	return 'r';*/
+}
+
+int Robot::getRow() const
+{
+	return row;
+}
+
+int Robot::getCol() const
+{
+	return col;
+}
+
+Position Robot::getPosition() const
+{
+	return {row, col};
+}
+
+bool Robot::isAlive() const
+{
+	//?
+}
+void setRow(int x);
+void setCol(int y);
+void setPosition(const Position& pos);
+void setAsDead();
+
 
 int main()
 {

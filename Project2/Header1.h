@@ -6,7 +6,7 @@ struct Movement
 	int dRow, dCol; // displacement, taking into account the chosen movement
 };
 ///////////////////////////////////////////////////////////////////////////////
-struct MovingBeing
+struct Position
 {
 	int row, col;
 };
@@ -68,8 +68,8 @@ private:
 class Maze {
 public:
 	Maze(int numRows, int numCols);
-	bool addPost(const Post& post, const Position& position)
-		int getnumRows() const;
+	bool addPost(const Post& post, const Position& position);
+	int getnumRows() const;
 	int getnumCols() const;
 	// other methods
 private:
