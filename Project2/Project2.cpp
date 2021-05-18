@@ -1,47 +1,63 @@
+// T04_G07.cpp
 // Project2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
+/*
+#include <iomanip>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <cctype>
+#include <ctime>
+*/
+
 #include "Header1.h"
+
+using namespace std;
 
 Player::Player(int row, int col, char symbol)
 {
-
+	this->row = row;
+	this->col = col;
+	this->symbol = symbol;
 }
 
 int Player::getRow() const
 {
-
+	return row;
 }
 
 int Player::getCol() const
 {
-
+	return col;
 }
 
 char Player::getSymbol() const
 {
-
+	return symbol;
 }
 
 bool Player::isAlive() const
 {
-
+	if (getSymbol() == 'H')
+		return true;
+	return false;
 }
 
 void Player::setAsDead()
 {
-
+	symbol = 'h';
 }
 
 bool Player::move(Movement delta)
 {
-
+	//?
 }
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	cout << "Hello World!\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
