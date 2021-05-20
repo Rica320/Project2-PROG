@@ -8,6 +8,9 @@
 #include "Maze.h"
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <iostream>
 
 class Game {
 public:

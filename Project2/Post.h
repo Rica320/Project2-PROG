@@ -11,6 +11,7 @@ public:
 	int getCol() const;
 	char getSymbol() const; // get char representation of Post
 	bool isElectrified() const;
+	bool isExit() const;
 	//other methods - A METHOD TO TELL IF IT IS A EXIT DOOR
 private:
 	int row, col;

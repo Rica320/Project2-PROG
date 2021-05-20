@@ -13,12 +13,14 @@ inline int Post::getCol() const {
 	return col;
 }
 
-inline char Post::getSymbol() const {
+char Post::getSymbol() const {
 	return type;
 }
 
 bool Post::isElectrified() const {
-	if (type == '*')
-		return true;
-	return false;
+	return type == '*';
+}
+
+bool Post::isExit() const {
+	return type == 'O';
 }

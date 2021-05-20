@@ -10,12 +10,13 @@
 #include <iomanip>
 
 void rules();
-void playGame(unsigned short int file_num);
+void playGame();
 
 unsigned short getValidMaze();
 
 std::string map_int_to_maze(unsigned short int file_to_open);
 bool tryLoad(std::string file);
+
 
 int main()
 {
@@ -54,7 +55,7 @@ int main()
 			rules();
 			break;
 		case 2:
-			playGame(getValidMaze());
+			playGame();
 			break;
 		case 3:
 			
@@ -74,10 +75,15 @@ int main()
 void rules() {
 	// TODO - put them on a file
 }
-void playGame(unsigned short int file_num){
-	//Game game(map_int_to_maze(file_num));
+void playGame(){
+	unsigned short int file_num = getValidMaze();
 
-	//game.play();
+	if (!file_num)
+		return;
+
+	Game game(map_int_to_maze(file_num));
+
+	game.play();
 }
 
 unsigned short getValidMaze()

@@ -18,12 +18,12 @@ inline int Player::getCol() const
 	return col;
 }
 
-inline char Player::getSymbol() const
+char Player::getSymbol() const
 {
 	return symbol;
 }
 
-inline bool Player::isAlive() const
+bool Player::isAlive() const
 {
 	return alive;
 }

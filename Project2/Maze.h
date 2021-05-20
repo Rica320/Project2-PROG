@@ -3,11 +3,14 @@
 
 #include "Position.h"
 #include "Post.h"
+#include <map>
 
 class Maze {
 public:
 	Maze(int numRows, int numCols);
-	Maze() = default;
+	Maze() = default; 
+	const std::map<Position, Post>& getPosts() const; 
+	std::map<Position, Post>& getPosts();// Not const cus' of the possibility of overide from robots
 	bool addPost(const Post& post, const Position& position);
 	int getnumRows() const;
 	int getnumCols() const;
@@ -16,5 +19,7 @@ private:
 	int numRows, numCols;
 	// data structure that represents the posts
 	// vector or maze (await for response)
+	std::map<Position, Post> posts;
 };
+
 #endif
