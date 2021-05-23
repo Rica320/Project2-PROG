@@ -18,7 +18,7 @@ public:
 	// This constructor should initialize the Maze, the vector of Robots, and the Player,
 	// using the chars read from the file
 	bool play(); // implements the game loop; returns true if player wins, false otherwise
-	bool isValid();
+	bool isValid(); //????remove????
 private:
 	void showGameDisplay() const;
 	bool collide(Robot& robot, Post& post); // check if robot collided with post (and possibly set it as dead)

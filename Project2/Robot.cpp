@@ -48,7 +48,7 @@ inline void Robot::setRow(int x) {
 }
 
 inline void Robot::setCol(int x) {
-	row = x;
+	col = x;
 }
 
 inline void Robot::setPosition(const Position& pos) {

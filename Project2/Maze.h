@@ -9,8 +9,8 @@ class Maze {
 public:
 	Maze(int numRows, int numCols);
 	Maze() = default; 
-	const std::map<Position, Post>& getPosts() const; 
-	std::map<Position, Post>& getPosts();// Not const cus' of the possibility of overide from robots
+	const std::map<Position, Post>& getPosts() const;
+	std::map<Position, Post>& getPosts();// Not const cus' of the possibility of override from robots
 	bool addPost(const Post& post, const Position& position);
 	int getnumRows() const;
 	int getnumCols() const;
