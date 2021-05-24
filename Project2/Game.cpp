@@ -73,6 +73,9 @@ void Game::showGameDisplay() const { //dá erro
 			}
 			else if (indRobots < Robot::getRobotCounter() && (robots[indRobots].getRow() == pos.row && robots[indRobots].getCol() == pos.col) ) //create robots map?
 			{
+				//
+				// Nota: fazer uso do getPosition e mudar a ordem dos ifs
+				//
 				std::cout << robots[indRobots].getSymbol(); //<< robots[indRobots].getID();
 				indRobots++;
 				while (indRobots < Robot::getRobotCounter() && robots[indRobots - 1].getRow() == robots[indRobots].getRow() && robots[indRobots - 1].getCol() == robots[indRobots].getCol()) // see later if it resolves the problem
@@ -251,8 +254,8 @@ bool Game::collide(Robot& robot, Player& player) {
 bool Game::collide(Robot& robot, Post& post) {
 	if (robot.getRow() == post.getRow() && robot.getCol() == post.getCol()) { // maybe is not necessary the if
 		robot.setAsDead();
-		Position pos{ robot.getRow(),robot.getCol() };
-		maze.getPosts().erase(pos); // not working 
+		Position pos{ robot.getRow(),robot.getCol() }; // change this to use robot.getPosition()
+		maze.getPosts().erase(pos); // not working / there is no need to, change order of print
 		if (post.getSymbol() == '*')
 			return true;
 	}
