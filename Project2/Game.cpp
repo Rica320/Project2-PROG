@@ -284,7 +284,7 @@ bool Game::moveRobots() {
 
 			iter = posts.find(newRobotPos);
 
-			if (iter != posts.end() && !collide(robot, iter->second)) {
+			if (iter != posts.end() && !collide(robot, iter->second)) { // the move is only made after but collide is called earlier
 				robot.move(dChange); 
 			}
 			else if (iter == posts.end()) {
