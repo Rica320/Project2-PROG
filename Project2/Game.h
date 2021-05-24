@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Post.h"
 #include "Maze.h"
+#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
@@ -23,13 +24,18 @@ public:
 private:
 	void showGameDisplay() const;
 	//bool addRobot(const Position& apos, Robot& aRobot);
-	bool collide(Robot& robot, Post& post); // check if robot collided with post (and possibly set it as dead) returns true if the post is electrified
-	bool collide(Robot& robot, Player& player); // check if human and robot collided (and possibly set human as dead)
-	bool collide(Player& player, Post& post);
+	// bool collide(Robot& aObj, Post& post); // check if aObj collided with post (and possibly set it as dead) returns true if the post is electrified
+	bool collide(Robot& robot, Player& player); // check if human and aObj collided (and possibly set human as dead)
+	// bool collide(Player& player, Post& post);
+	template<typename T>
+	bool collidePosts(T& robot); // DO a template with this 
+	void collideRobots(Robot& robot);
+	char inPos(Position apos) const;
 	char getMove() const;
 	bool moveRobots(); // return true if they all are dead or the player is dead
 	bool validMove(char c) const;
 	Movement ctom(char c) const;
+
 	// other methods, for example:
 	// to check if player is trying to move to a valid place
 	// to apply a valid playGame and check collisions
@@ -39,12 +45,33 @@ private:
 	Maze maze;
 	Player player;
 	std::vector<Robot> robots;
-	// alive Robots -> to be used
+	int aliveRobots;
 	//std::map<Position, Robot&> RobotsMap;
 	//other attributes
 	// MAP POSITION WITH POSTS??
 	// MAP POSITION WITH ROBOTS??
 };
 
-#endif
+template<typename T>
+bool Game::collidePosts(T& aObj) {
 
+	std::map<Position, Post>& posts = maze.getPosts();
+	if (posts.find(aObj.getPosition()) != posts.end()) { // maybe is not necessary the if
+		if (typeid(T) == typeid(Robot)) {
+			aObj.setAsDead();
+			aliveRobots--;
+			return posts.find(aObj.getPosition())->second.isElectrified();
+		}
+		else if(typeid(T) == typeid(Player))
+		{
+			bool b = posts.find(aObj.getPosition())->second.isExit();
+			if (!b)
+				aObj.setAsDead();
+			return true; // a collision occurred, the result (win/loose) is in the player
+		}
+	}
+	return NULL; // erase Post from vector 
+}
+
+
+#endif

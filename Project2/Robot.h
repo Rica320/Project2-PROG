@@ -32,6 +32,5 @@ private:
 	// other attributes (?)
 };
 
-
 #endif
 

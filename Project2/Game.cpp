@@ -38,6 +38,7 @@ Game::Game(const std::string& filename) { // está a funcionar direito
 
 	ifs.close();
 
+	aliveRobots = Robot::getRobotCounter();
 }
 
 
@@ -65,37 +66,29 @@ void Game::showGameDisplay() const { //dá erro
 		{
 			Position pos = {i,j};
 
-			if (maze.getPosts().find(pos) != maze.getPosts().end()) {
-				std::cout << maze.getPosts().find(pos)->second.getSymbol();
-			}
-			else if (pos.row == player.getRow() && pos.col == player.getCol()) {
+			if (pos.row == player.getRow() && pos.col == player.getCol()) {
 				std::cout << player.getSymbol();
 			}
-			else if (indRobots < Robot::getRobotCounter() && (robots[indRobots].getRow() == pos.row && robots[indRobots].getCol() == pos.col) ) //create robots map?
+			else if (char c = inPos(pos)) //create robots map?
 			{
-				//
-				// Nota: fazer uso do getPosition e mudar a ordem dos ifs
-				//
-				std::cout << robots[indRobots].getSymbol(); //<< robots[indRobots].getID();
-				indRobots++;
-				while (indRobots < Robot::getRobotCounter() && robots[indRobots - 1].getRow() == robots[indRobots].getRow() && robots[indRobots - 1].getCol() == robots[indRobots].getCol()) // see later if it resolves the problem
-				{
-					indRobots++;
-				}
+				std::cout << c; 
+			}
+			else if (maze.getPosts().find(pos) != maze.getPosts().end()){
+				std::cout << maze.getPosts().find(pos)->second.getSymbol();
 			}
 			else
 			{
 				std::cout << ' ';
 			}
 		}
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
 }
 
 bool Game::play() {
 	showGameDisplay();
 
-	while (true)
+	while (player.isAlive() && aliveRobots > 0)
 	{
 		char move = getMove();
 
@@ -104,16 +97,22 @@ bool Game::play() {
 
 		player.move(ctom(move));
 
+		if (collidePosts(player)) { 
+			showGameDisplay();
+			return player.isAlive(); // DO
+		}
+
 		// check collide
 
-		showGameDisplay();
-
-		moveRobots();
+		if (!moveRobots()) {
+			showGameDisplay();
+			break;
+		}
 
 		showGameDisplay();
 	}
 
-	return player.isAlive(); //&& won (reached portal)
+	return player.isAlive(); //&& won (reached portal) - no need
 }
 
 //bool Game::addRobot(const Position& apos, Robot& aRobot) {
@@ -177,11 +176,11 @@ bool Game::validMove(char c) const {
 
 	iter = posts.find(playerNewPos);
 
-	if (iter != posts.end() && iter->second.getSymbol() == '+')
+	if (iter != posts.end() && !iter->second.isElectrified() && !iter->second.isExit())
 		return false;
 
 	for (const auto &i : robots) { // optimize later
-		if (i.getRow() == playerNewPos.row && i.getCol() == playerNewPos.col && i.getSymbol() == 'r') { // colide robot/player
+		if (i.getPosition() == playerNewPos && !i.isAlive()) { // colide robot(dead)/player
 			return false;
 		}
 	}
@@ -244,23 +243,24 @@ Movement Game::ctom(char c) const {
 }
 
 bool Game::collide(Robot& robot, Player& player) {
-	if (robot.getRow() == player.getRow() && robot.getCol() == player.getCol()) {
+	if (robot.getPosition() == player.getPosition()) {
 		player.setAsDead();
 		return true;
 	}
 	return false;
 }
-
-bool Game::collide(Robot& robot, Post& post) {
-	if (robot.getRow() == post.getRow() && robot.getCol() == post.getCol()) { // maybe is not necessary the if
-		robot.setAsDead();
-		Position pos{ robot.getRow(),robot.getCol() }; // change this to use robot.getPosition()
-		maze.getPosts().erase(pos); // not working / there is no need to, change order of print
-		if (post.getSymbol() == '*')
-			return true;
-	}
-	return false; // erase Post from vector 
-}
+//
+//char Game::collidePosts(Robot& robot) {
+//
+//	std::map<Position, Post> &posts = maze.getPosts();
+//	if (posts.find(robot.getPosition()) != posts.end()) { // maybe is not necessary the if
+//		robot.setAsDead();
+//		aliveRobots--;
+//		Position pos{ robot.getRow(),robot.getCol() }; // change this to use robot.getPosition()
+//		return posts.find(robot.getPosition())->second.getSymbol();
+//	}
+//	return NULL; // erase Post from vector 
+//}
 
 bool Game::moveRobots() {
 
@@ -283,16 +283,20 @@ bool Game::moveRobots() {
 
 
 			Movement dChange{ lineMove,colMove };
-			Position newRobotPos{ robot.getRow() + lineMove, robot.getCol() + colMove };
+			Movement dInvChange{ -lineMove,-colMove };
+		/*	Position newRobotPos{ robot.getRow() + lineMove, robot.getCol() + colMove };
 
-			iter = posts.find(newRobotPos);
+			iter = posts.find(newRobotPos);*/
 
-			if (iter != posts.end() && !collide(robot, iter->second)) { // the move is only made after but collide is called earlier
-				robot.move(dChange); 
+			robot.move(dChange);
+			if (collidePosts(robot)) { 
+				robot.move(dInvChange);
 			}
-			else if (iter == posts.end()) {
-				robot.move(dChange);
-			}
+			
+			collideRobots(robot);
+
+			if (collide(robot, player))
+				break;
 			
 			//std::cout <<( iter != posts.end());
 		}
@@ -300,4 +304,30 @@ bool Game::moveRobots() {
 
 	return player.isAlive(); // and Robots are dead TODO
 
+}
+
+void Game::collideRobots(Robot& robot) {
+	for (auto& arobot : robots) {
+		if (arobot.getID() != robot.getID() && arobot.getPosition() == robot.getPosition()) {
+			if (arobot.isAlive()) {
+				aliveRobots -= 2; // 2 deaths- MAGIC NUMBER
+			}
+			else
+			{
+				aliveRobots --;
+			}
+			robot.setAsDead();
+			arobot.setAsDead();
+			return;
+		}
+	}
+
+}
+
+char Game::inPos(Position apos) const {
+	for (auto& i : robots) {
+		if (i.getPosition() == apos)
+			return i.getSymbol();
+	}
+	return NULL;
 }

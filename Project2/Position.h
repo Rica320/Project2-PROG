@@ -18,5 +18,9 @@ inline bool operator <(const Position& left, const Position& right)
 		return std::tie(left.row, left.col) < std::tie(right.row,right.col);
 
 	}
+inline bool operator ==(const Position& left, const Position& right)
+{
+	return left.row == right.row && left.col ==right.col;
+}
 
 #endif // !POSITION_H

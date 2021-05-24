@@ -39,3 +39,8 @@ void Player::move(Movement delta)
 	row += delta.dRow;
 	col += delta.dCol;
 }
+
+Position Player::getPosition() const
+{
+	return { row, col };
+}

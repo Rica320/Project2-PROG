@@ -14,6 +14,7 @@ public:
 	bool isAlive() const;
 	void setAsDead();
 	void move(Movement delta); // why bool??
+	Position getPosition() const;
 private:
 	int row, col;
 	bool alive;
