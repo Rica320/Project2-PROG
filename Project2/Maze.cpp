@@ -28,7 +28,7 @@ int Maze::getnumCols() const {
 const std::map<Position, Post>& Maze::getPosts() const{
 	return posts;
 }
-//
-//std::map<Position, Post>& Maze::getPosts() {
-//	return posts;
-//}
+
+std::map<Position, Post>& Maze::getPosts() {
+	return posts;
+}

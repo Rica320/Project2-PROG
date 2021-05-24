@@ -251,6 +251,8 @@ bool Game::collide(Robot& robot, Player& player) {
 bool Game::collide(Robot& robot, Post& post) {
 	if (robot.getRow() == post.getRow() && robot.getCol() == post.getCol()) { // maybe is not necessary the if
 		robot.setAsDead();
+		Position pos{ robot.getRow(),robot.getCol() };
+		maze.getPosts().erase(pos); // not working 
 		if (post.getSymbol() == '*')
 			return true;
 	}
@@ -282,10 +284,13 @@ bool Game::moveRobots() {
 
 			iter = posts.find(newRobotPos);
 
-			/*if (iter != posts.end() && !collide(robot, iter->second)) {
-				robot.move(dChange); // NOT WORKING AS PRETENDED
-			}*/
-			robot.move(dChange);
+			if (iter != posts.end() && !collide(robot, iter->second)) {
+				robot.move(dChange); 
+			}
+			else if (iter == posts.end()) {
+				robot.move(dChange);
+			}
+			
 			//std::cout <<( iter != posts.end());
 		}
 	}
