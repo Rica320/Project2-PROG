@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include "Robot.h"
 
 void rules();
 void playGame();
@@ -57,6 +58,7 @@ int main()
 			break;
 		case 2:
 			playGame();
+			Robot::resetRobotCounter();
 			break;
 		case 3:
 			//show the list of winners (or the message "empty list" if there are no winners, yet).

@@ -9,7 +9,7 @@ Robot::Robot(int row, int col)
 	alive = true;
 }
 
-inline int Robot::getID() const
+int Robot::getID() const
 {
 	return id;
 }
@@ -23,40 +23,44 @@ char Robot::getSymbol() const
 	return 'r';
 }
 
-inline int Robot::getRow() const
+int Robot::getRow() const
 {
 	return row;
 }
 
-inline int Robot::getCol() const
+int Robot::getCol() const
 {
 	return col;
 }
 
-inline Position Robot::getPosition() const
+Position Robot::getPosition() const
 {
 	return { row, col };
 }
 
-inline bool Robot::isAlive() const
+bool Robot::isAlive() const
 {
 	return alive;
 }
 
-inline void Robot::setRow(int x) {
+void Robot::setRow(int x) {
 	row = x;
 }
 
-inline void Robot::setCol(int x) {
+void Robot::setCol(int x) {
 	col = x;
 }
 
-inline void Robot::setPosition(const Position& pos) {
+void Robot::setPosition(const Position& pos) {
 	row = pos.row;
 	col = pos.col;
 }
 
-inline void Robot::setAsDead() {
+void Robot::setAsDead() {
 	alive = false;
 }
 
+void Robot::move(Movement delta) {
+	row += delta.dRow;
+	col += delta.dCol;
+}

@@ -8,12 +8,12 @@ Player::Player(int row, int col, char symbol)
 	alive = true;
 }
 
-inline int Player::getRow() const
+int Player::getRow() const
 {
 	return row;
 }
 
-inline int Player::getCol() const
+int Player::getCol() const
 {
 	return col;
 }

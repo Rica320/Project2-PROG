@@ -5,11 +5,11 @@ Post::Post(int row, int col, char type) {
 	this->type = type;
 }
 
-inline int Post::getRow() const {
+int Post::getRow() const {
 	return row;
 }
 
-inline int Post::getCol() const {
+int Post::getCol() const {
 	return col;
 }
 

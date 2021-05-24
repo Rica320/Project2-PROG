@@ -17,14 +17,18 @@ bool Maze::addPost(const Post& post, const Position& position) {
 
 }
 
-inline int Maze::getnumRows() const {
+int Maze::getnumRows() const {
 	return numRows;
 }
 
-inline int Maze::getnumCols() const {
+int Maze::getnumCols() const {
 	return numCols;
 }
 
 const std::map<Position, Post>& Maze::getPosts() const{
 	return posts;
 }
+//
+//std::map<Position, Post>& Maze::getPosts() {
+//	return posts;
+//}

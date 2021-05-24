@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Post.h"
 #include "Maze.h"
+#include <map>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -21,8 +22,14 @@ public:
 	bool isValid(); //????remove????
 private:
 	void showGameDisplay() const;
-	bool collide(Robot& robot, Post& post); // check if robot collided with post (and possibly set it as dead)
+	//bool addRobot(const Position& apos, Robot& aRobot);
+	bool collide(Robot& robot, Post& post); // check if robot collided with post (and possibly set it as dead) returns true if the post is electrified
 	bool collide(Robot& robot, Player& player); // check if human and robot collided (and possibly set human as dead)
+	bool collide(Player& player, Post& post);
+	char getMove() const;
+	bool moveRobots(); // return true if they all are dead or the player is dead
+	bool validMove(char c) const;
+	Movement ctom(char c) const;
 	// other methods, for example:
 	// to check if player is trying to move to a valid place
 	// to apply a valid playGame and check collisions
@@ -32,6 +39,8 @@ private:
 	Maze maze;
 	Player player;
 	std::vector<Robot> robots;
+	// alive Robots -> to be used
+	//std::map<Position, Robot&> RobotsMap;
 	//other attributes
 	// MAP POSITION WITH POSTS??
 	// MAP POSITION WITH ROBOTS??
