@@ -41,24 +41,9 @@ Game::Game(const std::string& filename) { // está a funcionar direito
 	aliveRobots = Robot::getRobotCounter();
 }
 
+void Game::showGameDisplay() const {
 
-//void Game::showGameDisplay() const { // just an experiment (shows posts)
-//	int a{};
-//	for (const auto& i : maze.getPosts()) {
-//		if (i.first.row > a) {
-//			a += 1;
-//			std::cout <<std::endl << i.second.getSymbol();
-//		}
-//		else {
-//			std::cout << i.second.getSymbol();
-//		}
-//	}
-//}
-
-
-void Game::showGameDisplay() const { //dá erro
-
-	int indRobots = 0; //remove after create map
+	int indRobots = 0; 
 
 	for (int i = 0; i < maze.getnumRows(); i++)
 	{
@@ -66,10 +51,10 @@ void Game::showGameDisplay() const { //dá erro
 		{
 			Position pos = {i,j};
 
-			if (pos.row == player.getRow() && pos.col == player.getCol()) {
+			if (pos == player.getPosition()) {
 				std::cout << player.getSymbol();
 			}
-			else if (char c = inPos(pos)) //create robots map?
+			else if (char c = inPos(pos)) 
 			{
 				std::cout << c; 
 			}
@@ -86,9 +71,10 @@ void Game::showGameDisplay() const { //dá erro
 }
 
 bool Game::play() {
+
 	showGameDisplay();
 
-	while (player.isAlive() && aliveRobots > 0)
+	while (player.isAlive() && aliveRobots)
 	{
 		char move = getMove();
 
@@ -115,15 +101,6 @@ bool Game::play() {
 	return player.isAlive(); //&& won (reached portal) - no need
 }
 
-//bool Game::addRobot(const Position& apos, Robot& aRobot) {
-//	std::pair<std::map<Position, Robot&>::iterator, bool> iter;
-//	iter = RobotsMap.insert(std::pair<Position, Robot&>(apos, aRobot));
-//
-//	if (!iter.second) {
-//		return false; // DEBUG ONLY
-//	}
-//	return true;
-//}
 char Game::getMove() const{
 	const char EXIT_GAME = NULL;
 	char move_key;
@@ -176,7 +153,7 @@ bool Game::validMove(char c) const {
 
 	iter = posts.find(playerNewPos);
 
-	if (iter != posts.end() && !iter->second.isElectrified() && !iter->second.isExit())
+	if (iter != posts.end() && !iter->second.isElectrified() && !iter->second.isExit()) //iter != posts.end() evaluated first
 		return false;
 
 	for (const auto &i : robots) { // optimize later
@@ -249,18 +226,6 @@ bool Game::collide(Robot& robot, Player& player) {
 	}
 	return false;
 }
-//
-//char Game::collidePosts(Robot& robot) {
-//
-//	std::map<Position, Post> &posts = maze.getPosts();
-//	if (posts.find(robot.getPosition()) != posts.end()) { // maybe is not necessary the if
-//		robot.setAsDead();
-//		aliveRobots--;
-//		Position pos{ robot.getRow(),robot.getCol() }; // change this to use robot.getPosition()
-//		return posts.find(robot.getPosition())->second.getSymbol();
-//	}
-//	return NULL; // erase Post from vector 
-//}
 
 bool Game::moveRobots() {
 
@@ -284,13 +249,11 @@ bool Game::moveRobots() {
 
 			Movement dChange{ lineMove,colMove };
 			Movement dInvChange{ -lineMove,-colMove };
-		/*	Position newRobotPos{ robot.getRow() + lineMove, robot.getCol() + colMove };
-
-			iter = posts.find(newRobotPos);*/
 
 			robot.move(dChange);
 			if (collidePosts(robot)) { 
 				robot.move(dInvChange);
+				continue;
 			}
 			
 			collideRobots(robot);
@@ -302,8 +265,7 @@ bool Game::moveRobots() {
 		}
 	}
 
-	return player.isAlive(); // and Robots are dead TODO
-
+	return player.isAlive(); 
 }
 
 void Game::collideRobots(Robot& robot) {
