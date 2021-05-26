@@ -16,7 +16,7 @@ public:
 	int getnumCols() const;
 	// other methods
 private:
-	int numRows, numCols;
+	int numRows{}, numCols{};
 	// data structure that represents the posts
 	// vector or maze (await for response)
 	std::map<Position, Post> posts;

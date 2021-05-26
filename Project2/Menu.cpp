@@ -1,10 +1,10 @@
 #include "Menu.h"
 
-void Menu::showName() {
-	std::cout << GAME_INTRO;
+void Menu::showIntro() {
+	std::cout << Menu::GAME_INTRO;
 }
 
-void Menu::askMode() {
+void Menu::menuLoop() {
 
 	const unsigned short NOT_VALID_INPUT = 99;
 
@@ -26,7 +26,7 @@ void Menu::askMode() {
 			break;
 		case 2:
 			menu_op2();
-			Robot::resetRobotCounter();
+			Robot::resetRobotCounter(); // this needs to disappear from here
 			break;
 		case 3:
 			//show the list of winners (or the message "empty list" if there are no winners, yet).
@@ -47,17 +47,13 @@ void Menu::askMode() {
 Displays the rules of the game.
 @return (none)
 */
-void Menu::menu_op1() {
+void Menu::menu_op1() const{
+    if (!tryOpen(Rule_FILE))
+        return;
+
 	std::ifstream ifs;
 
-	ifs.open("RULES.TXT");
-
-	if (ifs.fail())
-	{
-		ifs.close();
-		std::cerr << "Error: could not load rules\n";
-		return;
-	}
+	ifs.open(Rule_FILE);
 
 	std::string line;
 
@@ -110,6 +106,7 @@ unsigned short Menu::getValidMaze()
 
 		if (std::cin.fail() || std::cin.get() != '\n') {
 
+
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -153,7 +150,7 @@ Tries to open the file of the maze.
 @param file - the file name of the maze to play
 @return bool indicating success of the opening
 */
-bool Menu::tryOpen(std::string file)
+bool Menu::tryOpen(const std::string& file)
 {
 	std::ifstream ifs;
 
@@ -203,8 +200,8 @@ void Menu::menu_op3() {
 	std::string winFileName = map_int_to_mazeWin(maze);
 	if (!tryOpen(winFileName))
 		std::cerr << "empty list\n"; //there are no winners yet
-	else
-		//showFileContent();
+
+
 }
 //------------------------------------------------------------------------
 std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
