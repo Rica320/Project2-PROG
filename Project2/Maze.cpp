@@ -8,7 +8,9 @@ Maze::Maze(int numRows, int numCols) {
 
 bool Maze::addPost(const Post& post, const Position& position) {
 	std::pair<std::map<Position, Post>::iterator, bool> iter;
-	iter = posts.insert(std::pair<Position, Post>(position, post));
+	std::pair<Position, Post> pair;
+	pair = std::make_pair(position,post);
+	iter = posts.insert(pair);
 
 	if (!iter.second) {
 		return false; // DEBUG ONLY

@@ -25,7 +25,7 @@ public:
     static std::string getPlayerName();
 private:
     void menu_op1() const;
-    void menu_op2();
+    static void menu_op2();
     static void menu_op3();
     static void updateLeadersFile(unsigned short  int file_num, int time);
     // making it static gives the opportunity to update the file at any moment

@@ -15,7 +15,9 @@ struct Position
 };
 inline bool operator <(const Position& left, const Position& right)
 	{
-		return std::tie(left.row, left.col) < std::tie(right.row,right.col);
+        if(left.row != right.row)
+            return  left.row < right.row;
+		return left.col < right.col;
 
 	}
 inline bool operator ==(const Position& left, const Position& right)

@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <limits> // TO CHANGE
 
 Game::Game(const std::string& filename) { 
 	std::ifstream ifs(filename);
@@ -172,11 +171,14 @@ bool Game::validMove(char c) const {
 	if (iter != posts.end() && !iter->second.isElectrified() && !iter->second.isExit()) //iter != posts.end() evaluated first
 		return false;
 
-	for (const auto &i : robots) { // optimize later
+	/*for (const auto &i : robots) { // optimize later
 		if (i.getPosition() == playerNewPos && !i.isAlive()) { // collide robot(dead)/player
 			return false;
-		} // TODO REPLACE WITH STD::ALL_OF()
-	}
+		}
+	}*/
+
+	if (std::any_of(robots.begin(),robots.end(), [playerNewPos](Robot i){return i.getPosition() == playerNewPos && !i.isAlive();}))
+        return false;
 
     return true;
 }

@@ -20,7 +20,7 @@ struct Person {
 
 class LeaderBoard {
 public:
-    LeaderBoard(std::string Maze_file);
+    explicit LeaderBoard(const std::string& Maze_file);
     ~LeaderBoard();
     void addToLeaderBoard(Person& aPerson); // NOT const(par.) only because we could implement methods to delete lines
     void showLeaderBoard() const;
@@ -39,7 +39,9 @@ inline std::ostream& operator <<(std::ostream& os, const Person& right) {
     return os;
 }
 inline bool operator <(const Person& left, const Person& right) {
-    return std::tie(left.time, left.name) < std::tie(right.time,right.name);
+    if(left.time != right.time)
+        return left.time < right.time;
+    return left.name < right.name;
 }
 
 #endif //LEADERBOARD_H

@@ -4,15 +4,13 @@
 
 #include "LeaderBoard.h"
 
-#include <utility>
-
 short LeaderBoard::MAX_NAME_LENGTH = 15;
 short LeaderBoard::SPACE_BETWEEN_NAME_TIME = 2;
 short LeaderBoard::TIME_WIDTH = 4;
 
-LeaderBoard::LeaderBoard(std::string Maze_file) {
+LeaderBoard::LeaderBoard(const std::string& Maze_file) {
     std::ifstream ifs(Maze_file);
-    this->Maze_file = std::move(Maze_file);
+    this->Maze_file = Maze_file;
     if (ifs.fail())
         return;
 
@@ -24,8 +22,8 @@ LeaderBoard::LeaderBoard(std::string Maze_file) {
         int aTime;
 
         getline(ifs, line);
-        aName = line.substr(0, MAX_NAME_LENGTH);
-        aTime = stoi(line.substr(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME));
+        aName = line.substr(0, static_cast<const unsigned int>(MAX_NAME_LENGTH));
+        aTime = stoi(line.substr(static_cast<const unsigned int>(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME)));
 
         Person aPerson{aName,aTime};
         entries.push_back(aPerson);

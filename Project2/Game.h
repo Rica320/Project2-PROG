@@ -30,7 +30,7 @@ private:
 	bool collidePlayer(Robot& robot); // check if human and aObj collided (and possibly set human as dead)
 	// bool collidePlayer(Player& player, Post& post);
 	template<typename T>
-	bool collidePosts(T& robot); // DO a template with this 
+	bool collidePosts(T& aObj); // DO a template with this
 	void collideRobots(Robot& robot);
 	char inPos(Position apos) const;
 	char getMove() const;
