@@ -6,7 +6,7 @@ Game::Game(const std::string& filename) {
 	int nRows, nCols;
 	char element;
 
-	ifs >> nRows; ifs.ignore('x'); ifs >> nCols;
+	ifs >> nRows; ifs.ignore(100, 'x'); ifs >> nCols;
 
 	Maze maze_temp(nRows, nCols);
 	this->maze = maze_temp;

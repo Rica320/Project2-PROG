@@ -7,6 +7,7 @@ void Menu::showIntro() {
 void Menu::menuLoop() {
 
 	const unsigned short NOT_VALID_INPUT = 99;
+	unsigned short int mode;
 
 	do {
 

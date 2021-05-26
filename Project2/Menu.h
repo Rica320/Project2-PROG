@@ -26,7 +26,6 @@ private:
     static void menu_op2();
     static void menu_op3();
 private:
-	unsigned short int mode;
 	const std::string GAME_INTRO = (
             ".______        ______   .______     ______   .___________.    _______.       _______      ___      .___  ___.  _______ \n"
             "|   _  \\      /  __  \\  |   _  \\   /  __  \\  |           |   /      |       /  _____|    /   \\     |   \\/   | |   ____|\n"
