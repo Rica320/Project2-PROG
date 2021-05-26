@@ -78,7 +78,17 @@ void Menu::menu_op2() {
 
 	Game game(map_int_to_maze(file_num));
 
+    time_t time_start = time(nullptr);
 	bool result = game.play(); //result: true -> won; false -> lost
+    time_t time_end = time(nullptr);
+    time_t timePlayer = time_end - time_start;
+
+    if (result) { // TODO SHOW MESSAGE
+        updateLeadersFile(file_num, (int) timePlayer);
+    } else {
+        //TODO LOOSE MESSAGE
+        std::cout << "nop\n";
+    }
 }
 
 //------------------------------------------------------------------------
@@ -167,42 +177,9 @@ bool Menu::tryOpen(const std::string& file)
 
 //------------------------------------------------------------------------
 void Menu::menu_op3() {
-	const short MAX_MAZE_NUMBER = 99;
-	unsigned short maze;
-	bool isValid;
 
-	do
-	{
-
-		std::cout << "\t\tWhat is the maze from which you want to see the winners? (0 to go back)\n\t\t\t\t\t\t\t\t\t\t\t";
-		std::cin >> maze;
-
-		isValid = true;
-
-		if (std::cin.fail() || std::cin.get() != '\n') {
-
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-			isValid = false;
-			std::cerr << "\t\tNot a valid Maze number. Try again !!\a\n\n";
-		}
-		else {
-			if (!maze)
-				return;
-
-			else if (maze > MAX_MAZE_NUMBER) {
-				isValid = false;
-				std::cerr << "\t\tNot a valid Maze number (1-99). Try again !!\a\n\n";
-			}
-		}
-	} while (!isValid);
-
-	std::string winFileName = map_int_to_mazeWin(maze);
-	if (!tryOpen(winFileName))
-		std::cerr << "empty list\n"; //there are no winners yet
-
-
+    LeaderBoard leaderBoard(map_int_to_mazeWin(getValidMaze()));
+    leaderBoard.showLeaderBoard();
 }
 //------------------------------------------------------------------------
 std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
@@ -214,4 +191,35 @@ std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
 	oss << "MAZE_" << std::setw(FNUM_WIDTH) << std::setfill('0') << file_to_open << "_WINNERS.txt";
 
 	return oss.str();
+}
+//------------------------------------------------------------------------
+void Menu::updateLeadersFile(unsigned short  int file_num, int time) {
+
+    LeaderBoard leaderBoard(map_int_to_mazeWin(file_num)); // maybe put this private
+
+    Person newPerson{getPlayerName(), time};
+    leaderBoard.addToLeaderBoard(newPerson);
+    leaderBoard.sortLeaderBoard();
+    leaderBoard.showLeaderBoard();
+}
+//------------------------------------------------------------------------
+std::string Menu::getPlayerName() {
+    std::string name;
+    bool validLen;
+
+    do
+    {
+        std::cout << "\t\tWhat's your name? (max.15)\n\t\t\t\t\t\t\t\t\t\t\t";
+        std::cin >> std::ws;
+        getline(std::cin, name);
+
+        validLen = true;
+        if (name.size() > LeaderBoard::MAX_NAME_LENGTH)
+        {
+            validLen = false;
+            std::cerr << "\t\tToo long!! Try again.\a\n";
+        }
+    } while (!validLen);
+
+    return name;
 }

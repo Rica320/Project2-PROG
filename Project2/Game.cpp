@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <limits> // TO CHANGE
 
 Game::Game(const std::string& filename) { 
 	std::ifstream ifs(filename);
@@ -106,10 +107,24 @@ char Game::getMove() const{
 	char move_key;
 	bool valid;
 
+	/*
+    std::cout << "\t\tWhich move do you want to make?\n\t\t\t\t\t\t\t\t\t\t\t";
+    std::cin >> move_key;
+
+    while(!std::cin) {
+        if (std::cin.eof()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max());
+            return EXIT_GAME;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max());
+        std::cin >> move_key;
+    }*/
 	do
 	{
 		std::cout << "\t\tWhich move do you want to make?\n\t\t\t\t\t\t\t\t\t\t\t";
-		std::cin >> move_key;
+        std::cin >> move_key;
 
 		move_key = (char)toupper(move_key);
 
@@ -117,6 +132,7 @@ char Game::getMove() const{
 		if (std::cin.fail() || std::cin.peek() != '\n') {
 			if (std::cin.eof()) {
 				std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				return EXIT_GAME;
 			}
 
