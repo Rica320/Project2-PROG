@@ -1,7 +1,0 @@
-Player          - Time
-----------------------
-Pedro           -    4
-TUDO            -    4
-Ricardo         -    5
-Ricardo         -    5
-Ruca            -    6
