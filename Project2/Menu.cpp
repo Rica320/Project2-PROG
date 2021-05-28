@@ -181,8 +181,10 @@ bool Menu::tryOpen(const std::string& file)
 
 //------------------------------------------------------------------------
 void Menu::menu_op3() {
-
-    LeaderBoard leaderBoard(map_int_to_mazeWin(getValidMaze()));
+	unsigned short int winner_file_num = getValidMaze();
+	if (!winner_file_num)
+		return;
+    LeaderBoard leaderBoard(map_int_to_mazeWin(winner_file_num));
     leaderBoard.showLeaderBoard();
 }
 //------------------------------------------------------------------------
