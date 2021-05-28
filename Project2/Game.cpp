@@ -130,9 +130,10 @@ char Game::getMove() const{
 
 		if (std::cin.fail() || std::cin.peek() != '\n') {
 			if (std::cin.eof()) {
-				std::cin.clear();
+				/*std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				return EXIT_GAME;
+				return EXIT_GAME;*/
+					std::exit(0);
 			}
 
 			std::cin.clear();

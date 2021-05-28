@@ -16,6 +16,8 @@ void Menu::menuLoop() {
 
 		if (std::cin.fail() || std::cin.get() != '\n')
 		{
+			if (std::cin.eof())
+				std::exit(0);
 			mode = NOT_VALID_INPUT;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -117,6 +119,8 @@ unsigned short Menu::getValidMaze()
 
 		if (std::cin.fail() || std::cin.get() != '\n') {
 
+			if (std::cin.eof())
+				std::exit(0);
 
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
