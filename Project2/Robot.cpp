@@ -11,6 +11,7 @@ Robot::Robot(int row, int col)
 
 int Robot::getID() const
 {
+
 	return id;
 }
 

@@ -16,16 +16,16 @@
 
 class Menu {
 public:
-	void showIntro();
+	void showIntro() const;
 	void menuLoop();
     static bool tryOpen(const std::string& file);
     static std::string map_int_to_maze(unsigned short int file_to_open); // static if somebody wants to use it outside
     static std::string map_int_to_mazeWin(unsigned short int file_to_open);
-    static unsigned short getValidMaze();
+    static unsigned short getValidNum();
     static std::string getPlayerName();
 private:
     void menu_op1() const;
-    static void menu_op2();
+    void menu_op2() const;
     static void menu_op3();
     static void updateLeadersFile(unsigned short  int file_num, int time);
     // making it static gives the opportunity to update the file at any moment
@@ -47,7 +47,7 @@ private:
         "\t\t   \\    /    |  | |  `----.    |  |     |  `--'  | |  |\\  \\----.   |  |        |__| |__| |__| \n"
         "\t\t    \\__/     |__|  \\______|    |__|      \\______/  | _| `._____|   |__|        (__) (__) (__) \n\n"
     );
-    //const short MAX_NAME_LENGTH;
+
     //const short SPACE_BETWEEN_NAME_TIME;
 	const std::string Rule_FILE = "RULES.TXT";
 };

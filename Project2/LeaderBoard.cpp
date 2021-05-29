@@ -1,7 +1,3 @@
-//
-// Created by ricar on 26/05/2021.
-//
-
 #include "LeaderBoard.h"
 
 short LeaderBoard::MAX_NAME_LENGTH = 15;
