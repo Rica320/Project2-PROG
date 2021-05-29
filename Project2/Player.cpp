@@ -1,26 +1,11 @@
 #include "Player.h"
 
-Player::Player(int row, int col, char symbol)
+Player::Player(int row, int col, char symbol) : Game_Object(row,col,symbol)
 {
-	this->row = row;
-	this->col = col;
-	this->symbol = symbol;
-	alive = true;
-}
-
-int Player::getRow() const
-{
-	return row;
-}
-
-int Player::getCol() const
-{
-	return col;
-}
-
-char Player::getSymbol() const
-{
-	return symbol;
+	if (symbol == 'H')
+	    alive = true;
+	else
+	    alive = false;
 }
 
 bool Player::isAlive() const
@@ -32,15 +17,4 @@ void Player::setAsDead()
 {
 	symbol = 'h';
 	alive = false;
-}
-
-void Player::move(Movement delta)
-{
-	row += delta.dRow;
-	col += delta.dCol;
-}
-
-Position Player::getPosition() const
-{
-	return { row, col };
 }

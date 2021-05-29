@@ -5,8 +5,8 @@
 Shows the intro of the game.
 @return (none)
 */
-void Menu::showIntro() {
-	std::cout << Menu::GAME_INTRO;
+void Menu::showIntro() const{
+	std::cout << GAME_INTRO;
 }
 
 //------------------------------------------------------------------------
@@ -18,11 +18,12 @@ void Menu::menuLoop() {
 
 	const unsigned short NOT_VALID_INPUT = 99;
 	unsigned short int mode;
+	enum Modes{Exit, Rules , Play, Winners};
 
 	do {
 
 		std::cout << "\t\t1) Rules\n\t\t2) Play\n\t\t3) Winners\n\t\t0) Exit\n\t\t\t\t\t\t\t\t\t\t\t";
-		std::cin >> mode;
+		std::cin >> mode; std::cout << "\n"; // Just for space management
 
 		if (std::cin.fail() || std::cin.get() != '\n')
 		{
@@ -34,21 +35,21 @@ void Menu::menuLoop() {
 		}
 
 		switch (mode) {
-		case 1:
-			menu_op1();
+		case Rules:
+            menu_Rules();
 			break;
-		case 2:
-			menu_op2();
+		case Play:
+            menu_Play();
 			Robot::resetRobotCounter(); // this needs to disappear from here
 			break;
-		case 3:
+		case Winners:
 			//show the list of winners (or the message "empty list" if there are no winners, yet).
-			menu_op3();
+            menu_Winners();
 			break;
-		case 0:
+		case Exit:
 			break;
 		default:
-			std::cerr << "Not a valid option. Try again !!\a\n";
+			std::cerr << "Not a valid option. Try again !!\n";
 			break;
 		}
 
@@ -60,7 +61,7 @@ void Menu::menuLoop() {
 Displays the rules of the game.
 @return (none)
 */
-void Menu::menu_op1() const{
+void Menu::menu_Rules() const{
     if (!tryOpen(Rule_FILE))
         return;
 
@@ -82,7 +83,7 @@ void Menu::menu_op1() const{
 Starts the game mode.
 @return (none)
 */
-void Menu::menu_op2() {
+void Menu::menu_Play() const{
 	unsigned short int file_num = getValidMaze();
 
 	if (!file_num)
@@ -96,7 +97,7 @@ void Menu::menu_op2() {
     time_t timePlayer = time_end - time_start;
 
     if (result) { 
-		//std::cout << Menu::WIN_MESSAGE; // TODO CORRECT ERROR HERE
+		std::cout << WIN_MESSAGE;
         updateLeadersFile(file_num, (int) timePlayer);
     } else {
         std::cout << "GAME OVER! Better luck next time :)\n";
@@ -111,7 +112,7 @@ Asks the user about the maze to open until getting a valid file number
 */
 unsigned short Menu::getValidMaze()
 {
-	const short MAX_MAZE_NUMBER = 99;
+	static const short MAX_MAZE_NUMBER = 99;
 
 	unsigned short f_num;
 	std::string mazeFileName;
@@ -123,7 +124,7 @@ unsigned short Menu::getValidMaze()
 		// repeat this until the corresponding maze file is found or the user input is 0 (show menu again)
 
 		std::cout << "\t\tTell us the maze to use (0 to go to menu)\n\t\t\t\t\t\t\t\t\t\t\t";
-		std::cin >> f_num;
+		std::cin >> f_num; std::cout << "\n"; // Just for space management
 
 		validInput = true;
 
@@ -136,15 +137,15 @@ unsigned short Menu::getValidMaze()
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 			validInput = false;
-			std::cerr << "\t\tNot a valid Maze number. Try again !!\a\n\n";
+			std::cerr << "\t\tNot a valid Maze number. Try again !!\n\n";
 		}
 		else {
-			if (!f_num)
+			if (!f_num) // f_num == 0
 				return f_num;
 
 			else if (f_num > MAX_MAZE_NUMBER) {
 				validInput = false;
-				std::cerr << "\t\tNot a valid Maze number (1-99). Try again !!\a\n\n";
+				std::cerr << "\t\tNot a valid Maze number (1-99). Try again !!\n\n";
 			}
 			mazeFileName = map_int_to_maze(f_num);
 		}
@@ -160,7 +161,7 @@ Creates the name of the maze file, to be searched.
 */
 std::string Menu::map_int_to_maze(unsigned short int file_to_open) {
 
-	const unsigned int FNUM_WIDTH = 2; // width of the file number
+	static const unsigned int FNUM_WIDTH = 2; // width of the file number
 
 	std::ostringstream oss;
 
@@ -183,15 +184,15 @@ bool Menu::tryOpen(const std::string& file)
 
 	if (ifs.fail())
 	{
-		std::cerr << "\t\tFile " << file << " not found\a\n" << std::endl;
+		std::cerr << "\t\tFile " << file << " not found\n";
 		return false;
 	}
 	return true;
 }
 
 //------------------------------------------------------------------------
-void Menu::menu_op3() {
-	unsigned short int winner_file_num = getValidMaze();
+void Menu::menu_Winners() {
+	unsigned short int winner_file_num = getValidMaze();// if the Maze doesn't exist the Maze_winners won't exist
 	if (!winner_file_num)
 		return;
     LeaderBoard leaderBoard(map_int_to_mazeWin(winner_file_num));
@@ -227,13 +228,16 @@ std::string Menu::getPlayerName() {
     {
         std::cout << "\t\tWhat's your name? (max.15)\n\t\t\t\t\t\t\t\t\t\t\t";
         std::cin >> std::ws;
-        getline(std::cin, name);
+        getline(std::cin, name); std::cout << "\n"; // Just for space management
+
+        if(std::cin.eof())
+            std::exit(0);
 
         validLen = true;
-        if (name.size() > LeaderBoard::MAX_NAME_LENGTH)
+        if (name.size() > LeaderBoard::MAX_NAME_LENGTH) // TODO: IS IT A WARNING ???
         {
             validLen = false;
-            std::cerr << "\t\tToo long!! Try again.\a\n";
+            std::cerr << "\t\tToo long!! Try again.\n";
         }
     } while (!validLen);
 

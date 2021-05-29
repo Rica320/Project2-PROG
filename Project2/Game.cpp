@@ -20,14 +20,14 @@ Game::Game(const std::string& filename) {
 			element = (char)ifs.get();
 
 			if (element == '*' || element == '+' || element == 'O') {
-				Post aPost(i, j, element);
+				Post aPost( i, j, element);
 				Position pos{ i, j };
 				maze.addPost(aPost, pos);
 			} else if (element == 'H') {
 				Player thePlayer(i, j, element);
 				player = thePlayer;
-			} else if (element == 'R') {
-				Robot aRobot(i, j);
+			} else if (element == 'R' || element == 'r') {
+				Robot aRobot(i, j, element);
 				robots.push_back(aRobot);
 			}
 		}
@@ -35,8 +35,6 @@ Game::Game(const std::string& filename) {
 	}
 
 	ifs.close();
-
-	aliveRobots = Robot::getRobotCounter();
 }
 
 void Game::showGameDisplay() const {
@@ -52,7 +50,7 @@ void Game::showGameDisplay() const {
 			// Note: order of display is important as we
 			//       want first to see the player and the 
 			//       robots and only then (if there is none)
-			//       the posts and ' ' space
+			//       the posts and ' ' space.
 
 			if (pos == player.getPosition()) {
 				std::cout << player.getSymbol();
@@ -77,12 +75,9 @@ bool Game::play() {
 
 	showGameDisplay();
 
-	while (player.isAlive() && aliveRobots)
+	while (player.isAlive())
 	{
 		char move = getMove();
-
-		if (move == '\0')
-			return false;
 
 		player.move(ctom(move));
 
@@ -102,37 +97,19 @@ bool Game::play() {
 }
 
 char Game::getMove() const{
-	const char EXIT_GAME = '\0';
 	char move_key;
 	bool valid;
 
-	/*
-    std::cout << "\t\tWhich move do you want to make?\n\t\t\t\t\t\t\t\t\t\t\t";
-    std::cin >> move_key;
-
-    while(!std::cin) {
-        if (std::cin.eof()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max());
-            return EXIT_GAME;
-        }
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max());
-        std::cin >> move_key;
-    }*/
 	do
 	{
 		std::cout << "\t\tWhich move do you want to make?\n\t\t\t\t\t\t\t\t\t\t\t";
-        std::cin >> move_key;
+        std::cin >> move_key; std::cout << "\n"; // Just for space management
 
 		move_key = (char)toupper(move_key);
 
 
 		if (std::cin.fail() || std::cin.peek() != '\n') {
 			if (std::cin.eof()) {
-				/*std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				return EXIT_GAME;*/
 					std::exit(0);
 			}
 
@@ -143,7 +120,7 @@ char Game::getMove() const{
 		valid = validMove(move_key);
 
 		if (!valid) {
-			std::cerr << "\t\tNot a valid move!!!\a\n";
+			std::cerr << "\t\tNot a valid move!!!\n";
 		}
 
 	} while (!valid);
@@ -171,12 +148,6 @@ bool Game::validMove(char c) const {
 
 	if (iter != posts.end() && !iter->second.isElectrified() && !iter->second.isExit()) //iter != posts.end() evaluated first
 		return false;
-
-	/*for (const auto &i : robots) { // optimize later
-		if (i.getPosition() == playerNewPos && !i.isAlive()) { // collide robot(dead)/player
-			return false;
-		}
-	}*/
 
 	if (std::any_of(robots.begin(),robots.end(), [playerNewPos](Robot i){return i.getPosition() == playerNewPos && !i.isAlive();}))
         return false;
@@ -281,15 +252,15 @@ void Game::moveRobots() {
 void Game::collideRobots(Robot& robot) {
 	for (auto& aRobot : robots) {
 		if (aRobot.getID() != robot.getID() && aRobot.getPosition() == robot.getPosition()) {
-			// checking if the 2 robots are not the same and if they are in the name position
+			// checking if the 2 robots are not the same and if they are in the same position
 
-			if (aRobot.isAlive()) {
+			/*if (aRobot.isAlive()) {
 				aliveRobots -= 2; // 2 deaths- MAGIC NUMBER
 			}
 			else
 			{
 				aliveRobots --;
-			}
+			}*/
 			robot.setAsDead();
 			aRobot.setAsDead();
 			return;

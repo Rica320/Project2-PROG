@@ -2,22 +2,17 @@
 #define PLAYER_H
 
 #include "Position.h"
+#include "Game_Object.h"
 
-class Player
+class Player : public Game_Object
 {
 public:
 	Player(int row, int col, char symbol);
 	Player() = default;
-	int getRow() const;
-	int getCol() const;
-	char getSymbol() const;
 	bool isAlive() const;
 	void setAsDead();
-	void move(Movement delta); // why bool??
-	Position getPosition() const;
 private:
-	int row, col;
 	bool alive;
-	char symbol;
+
 };
 #endif

@@ -1,12 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 
+// classes
 #include "Position.h"
 #include "Robot.h"
 #include "Player.h"
 #include "Post.h"
 #include "Maze.h"
 
+// stl headers
 #include <cctype>
 #include <algorithm>
 #include <map>
@@ -22,7 +24,6 @@ public:
 	// This constructor should initialize the Maze, the vector of Robots, and the Player,
 	// using the chars read from the file
 	bool play(); // implements the game loop; returns true if player wins, false otherwise
-	bool isValid(); //????remove????
 private:
 	void showGameDisplay() const;
 	//bool addRobot(const Position& apos, Robot& aRobot);
@@ -47,7 +48,6 @@ private:
 	Maze maze;
 	Player player{};
 	std::vector<Robot> robots;
-	int aliveRobots;
 	//std::map<Position, Robot&> RobotsMap;
 	//other attributes
 	// MAP POSITION WITH POSTS??
@@ -58,10 +58,10 @@ template<typename T>
 bool Game::collidePosts(T& aObj) {
 
 	std::map<Position, Post>& posts = maze.getPosts();
-	if (posts.find(aObj.getPosition()) != posts.end()) { // maybe is not necessary the if
+	if (posts.find(aObj.getPosition()) != posts.end()) {
 		if (typeid(T) == typeid(Robot)) {
 			aObj.setAsDead();
-			aliveRobots--;
+			// aliveRobots--;
 			return posts.find(aObj.getPosition())->second.isElectrified();
 		}
 		else if(typeid(T) == typeid(Player))
@@ -72,7 +72,7 @@ bool Game::collidePosts(T& aObj) {
 			return true; // a collision occurred, the result (win/loose) is in the player
 		}
 	}
-	return NULL; 
+	return false;
 }
 
 

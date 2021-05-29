@@ -16,7 +16,7 @@
 
 class Menu {
 public:
-	void showIntro();
+    void showIntro() const;
 	void menuLoop();
     static bool tryOpen(const std::string& file);
     static std::string map_int_to_maze(unsigned short int file_to_open); // static if somebody wants to use it outside
@@ -24,11 +24,11 @@ public:
     static unsigned short getValidMaze();
     static std::string getPlayerName();
 private:
-    void menu_op1() const;
-    static void menu_op2();
-    static void menu_op3();
+    void menu_Rules() const;
+    void menu_Play() const;
+    static void menu_Winners();
     static void updateLeadersFile(unsigned short  int file_num, int time);
-    // making it static gives the opportunity to update the file at any moment
+    // making it static gives the opportunity to update the leaderboard at any moment
 private:
 	const std::string GAME_INTRO = (
             ".______        ______   .______     ______   .___________.    _______.       _______      ___      .___  ___.  _______ \n"
@@ -40,15 +40,13 @@ private:
 
     );
     const std::string WIN_MESSAGE = (
-        "\t\t____    ____  __    ______ .___________.  ______   .______     ____    ____     __   __   __  \n"
-        "\t\t\\   \\  /   / |  |  /      ||           | /  __  \\  |   _  \\    \\   \\  /   /    |  | |  | |  | \n"
-        "\t\t \\   \\/   /  |  | |  ,----'`---|  |----`|  |  |  | |  |_)  |    \\   \\/   /     |  | |  | |  | \n"
-        "\t\t  \\      /   |  | |  |         |  |     |  |  |  | |      /      \\_    _/      |  | |  | |  | \n"
-        "\t\t   \\    /    |  | |  `----.    |  |     |  `--'  | |  |\\  \\----.   |  |        |__| |__| |__| \n"
-        "\t\t    \\__/     |__|  \\______|    |__|      \\______/  | _| `._____|   |__|        (__) (__) (__) \n\n"
+            "\t\t____    ____  __    ______ .___________.  ______   .______     ____    ____     __   __   __  \n"
+            "\t\t\\   \\  /   / |  |  /      ||           | /  __  \\  |   _  \\    \\   \\  /   /    |  | |  | |  | \n"
+            "\t\t \\   \\/   /  |  | |  ,----'`---|  |----`|  |  |  | |  |_)  |    \\   \\/   /     |  | |  | |  | \n"
+            "\t\t  \\      /   |  | |  |         |  |     |  |  |  | |      /      \\_    _/      |  | |  | |  | \n"
+            "\t\t   \\    /    |  | |  `----.    |  |     |  `--'  | |  |\\  \\----.   |  |        |__| |__| |__| \n"
+            "\t\t    \\__/     |__|  \\______|    |__|      \\______/  | _| `._____|   |__|        (__) (__) (__) \n\n"
     );
-    //const short MAX_NAME_LENGTH;
-    //const short SPACE_BETWEEN_NAME_TIME;
 	const std::string Rule_FILE = "RULES.TXT";
 };
 
