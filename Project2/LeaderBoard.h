@@ -1,7 +1,3 @@
-//
-// Created by ricar on 26/05/2021.
-//
-
 #ifndef LEADERBOARD_H
 #define LEADERBOARD_H
 

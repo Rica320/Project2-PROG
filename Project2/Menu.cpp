@@ -80,7 +80,7 @@ void Menu::menu_Rules() const{
 
 //------------------------------------------------------------------------
 /**
-Starts the game mode.
+Handles the game mode.
 @return (none)
 */
 void Menu::menu_Play() const{
@@ -106,7 +106,7 @@ void Menu::menu_Play() const{
 
 //------------------------------------------------------------------------
 /**
-Asks the user about the maze to open until getting a valid file number
+Asks the user about the maze number until getting a valid number
 (number of an existing file or back to main menu)
 @return the number of the maze or NULL (0) to go to menu
 */
@@ -191,6 +191,11 @@ bool Menu::tryOpen(const std::string& file)
 }
 
 //------------------------------------------------------------------------
+/**
+Asks the user the maze he/she wants to see the winners from
+(shows the winners if file is found, otherwise "empty list")
+@return (none)
+*/
 void Menu::menu_Winners() {
 	unsigned short int winner_file_num = getValidMaze();// if the Maze doesn't exist the Maze_winners won't exist
 	if (!winner_file_num)
@@ -198,7 +203,13 @@ void Menu::menu_Winners() {
     LeaderBoard leaderBoard(map_int_to_mazeWin(winner_file_num));
     leaderBoard.showLeaderBoard();
 }
+
 //------------------------------------------------------------------------
+/**
+Creates the name of the winners file, to be searched.
+@param file_to_open - the number of the maze
+@return the full name of the winners file
+*/
 std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
 
 	const unsigned int FNUM_WIDTH = 2; // width of the file number
@@ -209,7 +220,13 @@ std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
 
 	return oss.str();
 }
+
 //------------------------------------------------------------------------
+/**
+Creates the name of the maze file, to be searched.
+@param file_to_open - the number of the maze
+@return the full name of the maze file
+*/
 void Menu::updateLeadersFile(unsigned short  int file_num, int time) {
 
     LeaderBoard leaderBoard(map_int_to_mazeWin(file_num)); // maybe put this private
@@ -219,6 +236,7 @@ void Menu::updateLeadersFile(unsigned short  int file_num, int time) {
     leaderBoard.sortLeaderBoard();
     leaderBoard.showLeaderBoard();
 }
+
 //------------------------------------------------------------------------
 std::string Menu::getPlayerName() {
     std::string name;
