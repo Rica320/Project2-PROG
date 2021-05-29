@@ -1,9 +1,19 @@
 #include "Menu.h"
 
+//------------------------------------------------------------------------
+/**
+Shows the intro of the game.
+@return (none)
+*/
 void Menu::showIntro() {
 	std::cout << Menu::GAME_INTRO;
 }
 
+//------------------------------------------------------------------------
+/**
+Manages the options of the initial menu.
+@return (none)
+*/
 void Menu::menuLoop() {
 
 	const unsigned short NOT_VALID_INPUT = 99;
@@ -85,11 +95,11 @@ void Menu::menu_op2() {
     time_t time_end = time(nullptr);
     time_t timePlayer = time_end - time_start;
 
-    if (result) { // TODO SHOW MESSAGE
+    if (result) { 
+		//std::cout << Menu::WIN_MESSAGE; // TODO CORRECT ERROR HERE
         updateLeadersFile(file_num, (int) timePlayer);
     } else {
-        //TODO LOOSE MESSAGE
-        std::cout << "nop\n";
+        std::cout << "GAME OVER! Better luck next time :)\n";
     }
 }
 
@@ -161,8 +171,8 @@ std::string Menu::map_int_to_maze(unsigned short int file_to_open) {
 
 //------------------------------------------------------------------------
 /**
-Tries to open the file of the maze.
-@param file - the file name of the maze to play
+Tries to open a file.
+@param file - the file's name
 @return bool indicating success of the opening
 */
 bool Menu::tryOpen(const std::string& file)
