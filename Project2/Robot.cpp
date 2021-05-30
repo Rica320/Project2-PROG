@@ -7,7 +7,10 @@ Robot::Robot(int row, int col, char symbol)
         : Game_Object(row,col,symbol)
 {
 	id = ++robotCounter;
-	alive = true;
+	if (symbol == 'R' )
+		alive = true;
+	else 
+		alive = false;
 }
 
 //------------------------------------------------------------------------
