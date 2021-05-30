@@ -6,7 +6,7 @@ GROUP MEMBERS:
 
 PROGRAM DEVELOPMENT STATE:
 
-  O objetivo deste trabalho foi alcançado com sucesso. Além do proposto, foram melhoradas as interações com o jogo, apresentando-se 
+  O objetivo deste trabalho foi alcançado. Além do proposto, foram melhoradas as interações com o jogo, apresentando-se 
   texto em ASCII Art (do site https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20 fonte star wars) e 
   centralizado o jogo ligeiramente, o que melhora a interface com o utilizador.
   
@@ -15,12 +15,20 @@ PROGRAM DEVELOPMENT STATE:
   como sendo válidos), não ter que criar um ficheiro para os vencedores. Além disso, só seria possível mostrar os (eventuais) 
   vencedores de um dado maze na condição de esse maze existir.
   
-  Por outro lado, também se assumiu que os labirintos (mazes) apenas contêm saídas na sua delimitação ou periferia.
+  Por outro lado, também se assumiu que os labirintos (mazes) apenas contêm saídas na sua delimitação ou periferia. Nenhuma indicação
+  foi dada para o que acontecia para o caso de tal não acontecer, e tendo em conta que os robôs não tem visão estes poderiam muito
+  bem ir ao encontro destes postes. 
   
-  Também se assumiu que quando os robôs vivos R colidem com robôs mortos/presos r são representados por um único carater r. 
+  Também se assumiu que quando os robôs vivos R colidem com robôs mortos/presos r são representados por um único carater r,
+  algo que não estava muito implementados percetível nas especificações do trabalho.
+   
+  Apenas métodos utilizados foram   no código submetido.
   
 MAIN DIFFICULTIES: 
 
-  As maiores dificuldades sentidas foram, numa fase prévia, a procura e decisão acerca da melhor forma para representar certas 
-  estruturas de dados e seus métodos, resultando, por vezes, numa necessidade de trocar a metodologia adotada inicialmente numa 
-  fase mais posterior, aquando do maior desenvolvimento do projeto.
+   A maior dificuldade sentida foi na mudança para um paradigma de linguagem orientada por objetos, mudança que obviamente
+  nos obrigou a reconstruir grande parte do código do outro projeto. Uma vez que este trabalho era centrado em OPP optámos
+  por trabalhar quase unicamente com classes( fazendo uma class "Menu" que ficou com a responsiblidade de mapear inputs 
+  para ficheiros, de chamar as diversas opções do menu etc, uma para a leaderBoard que tem como responsablidade gerenciar 
+  os ficheiros dos vencedores e ainda outra para descrever um objeto da maze (da qual as do poste, robô e player derivam).
+   
