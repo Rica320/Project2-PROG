@@ -23,7 +23,10 @@ public:
 	*/
 	bool isExit() const;
 
-};
+	static const char elecPost = '*';
+	static const char nonElecPost = '+';
+	static const char exitGate = 'O';
 
+};
 
 #endif

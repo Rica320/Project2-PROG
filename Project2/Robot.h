@@ -36,6 +36,9 @@ public:
 	// static int getRobotCounter() { return robotCounter; };
 	static void resetRobotCounter() { robotCounter = 0; };
 
+	static const char deadRobot = 'r';
+	static const char aliveRobot = 'R';
+
 private:
 
 	static int robotCounter; //used to attribute automatically the id to the robots

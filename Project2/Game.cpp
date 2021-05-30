@@ -22,14 +22,14 @@ Game::Game(const std::string& filename) {
 		{
 			element = (char)ifs.get();
 
-			if (element == elecPost || element == nonElecPost || element == exitGate) {
+			if (element == Post::elecPost || element == Post::nonElecPost || element == Post::exitGate) {
 				Post aPost( i, j, element);
 				Position pos{ i, j };
 				maze.addPost(aPost, pos);
-			} else if (element == aliveHuman) {
+			} else if (element == Player::alivePlayer) {
 				Player thePlayer(i, j, element);
 				player = thePlayer;
-			} else if (element == aliveRobot || element == deadRobot) {
+			} else if (element == Robot::aliveRobot || element == Robot::deadRobot) {
 				Robot aRobot(i, j, element);
 				robots.push_back(aRobot);
 			}
@@ -155,7 +155,7 @@ bool Game::validMove(char c) const {
 		return false;
 
 	if (std::any_of(robots.begin(),robots.end(), [playerNewPos](Robot i){return i.getPosition() == playerNewPos && !i.isAlive();}))
-        return false;
+        return false; // there is a 'r' in the position
 
     return true;
 }
@@ -163,7 +163,6 @@ bool Game::validMove(char c) const {
 //------------------------------------------------------------------------
 Movement Game::ctom(char c) {
 	// map char to index movement
-    // TODO MAKE THIS SHORTER
 	Movement mov{ 0,0 };
 
 	static const short int PREV = -1; // to move to the previous line or column
@@ -263,7 +262,6 @@ void Game::collideRobots(Robot& robot) {
 	for (auto& aRobot : robots) {
 		if (aRobot.getID() != robot.getID() && aRobot.getPosition() == robot.getPosition()) {
 			// checking if the 2 robots are not the same and if they are in the same position
-
 			robot.setAsDead();
 			aRobot.setAsDead();
 			return;

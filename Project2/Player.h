@@ -24,6 +24,9 @@ public:
 	*/
 	void setAsDead();
 
+	static const char deadPlayer = 'h';
+	static const char alivePlayer = 'H';
+
 private:
 
 	bool alive;

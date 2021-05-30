@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------
 Player::Player(int row, int col, char symbol) : Game_Object(row,col,symbol)
 {
-	if (symbol == aliveHuman)
+	if (symbol == alivePlayer)
 	    alive = true;
 	else
 	    alive = false;
@@ -20,6 +20,6 @@ bool Player::isAlive() const
 //------------------------------------------------------------------------
 void Player::setAsDead()
 {
-	symbol = deadHuman;
+	symbol = deadPlayer;
 	alive = false;
 }

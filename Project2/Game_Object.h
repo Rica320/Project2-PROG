@@ -5,14 +5,6 @@
 
 #include "Position.h"
 
-static const char deadRobot = 'r';
-static const char aliveRobot = 'R';
-static const char deadHuman = 'h';
-static const char aliveHuman = 'H';
-static const char elecPost = '*';
-static const char nonElecPost = '+';
-static const char exitGate = 'O';
-
 class Game_Object {
 public:
     
@@ -61,6 +53,5 @@ protected:
     int row, col;
 
 };
-
 
 #endif //GAME_OBJECT_H
