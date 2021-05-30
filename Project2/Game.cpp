@@ -20,14 +20,14 @@ Game::Game(const std::string& filename) {
 		{
 			element = (char)ifs.get();
 
-			if (element == '*' || element == '+' || element == 'O') {
+			if (element == elecPost || element == nonElecPost || element == exitGate) {
 				Post aPost( i, j, element);
 				Position pos{ i, j };
 				maze.addPost(aPost, pos);
-			} else if (element == 'H') {
+			} else if (element == aliveHuman) {
 				Player thePlayer(i, j, element);
 				player = thePlayer;
-			} else if (element == 'R' || element == 'r') {
+			} else if (element == aliveRobot || element == deadRobot) {
 				Robot aRobot(i, j, element);
 				robots.push_back(aRobot);
 			}

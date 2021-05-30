@@ -28,5 +28,5 @@ bool Robot::isAlive() const
 //------------------------------------------------------------------------
 void Robot::setAsDead() {
 	alive = false;
-	symbol = 'r';
+	symbol = deadRobot;
 }

@@ -3,6 +3,14 @@
 
 #include "Position.h"
 
+const char deadRobot = 'r';
+const char aliveRobot = 'R';
+const char deadHuman = 'h';
+const char aliveHuman = 'H';
+const char elecPost = '*';
+const char nonElecPost = '+';
+const char exitGate = 'O';
+
 class Game_Object {
 public:
     
