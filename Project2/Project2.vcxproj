@@ -142,6 +142,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game_Object.cpp">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent>false</DeploymentContent>
     </ClCompile>
     <ClCompile Include="LeaderBoard.cpp" />
     <ClCompile Include="Maze.cpp" />
@@ -154,7 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game_Object.h">
-      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent>false</DeploymentContent>
     </ClInclude>
     <ClInclude Include="LeaderBoard.h" />
     <ClInclude Include="Maze.h" />
