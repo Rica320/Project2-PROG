@@ -43,7 +43,6 @@ void Menu::menuLoop() {
 			Robot::resetRobotCounter(); // this needs to disappear from here
 			break;
 		case Winners:
-			//show the list of winners (or the message "empty list" if there are no winners, yet).
             menu_Winners();
 			break;
 		case Exit:
@@ -192,12 +191,12 @@ bool Menu::tryOpen(const std::string& file)
 
 //------------------------------------------------------------------------
 /**
-Asks the user the maze he/she wants to see the winners from
-(shows the winners if file is found, otherwise "empty list")
+Asks the user which one is the maze he/she wants to see the winners of
+and shows the list of winners if file is found and is not empty, otherwise "empty list"
 @return (none)
 */
 void Menu::menu_Winners() {
-	unsigned short int winner_file_num = getValidMaze();// if the Maze doesn't exist the Maze_winners won't exist
+	unsigned short int winner_file_num = getValidMaze();// if the Maze doesn't exist, the Maze_winners won't exist
 	if (!winner_file_num)
 		return;
     LeaderBoard leaderBoard(map_int_to_mazeWin(winner_file_num));
@@ -223,11 +222,12 @@ std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
 
 //------------------------------------------------------------------------
 /**
-Creates the name of the maze file, to be searched.
-@param file_to_open - the number of the maze
-@return the full name of the maze file
+Adds name and time of the new winner to the winners file, sorts it in ascending order and shows it
+@param file_num - the number of the maze
+@param time - the time the player took to win the game
+@return (none)
 */
-void Menu::updateLeadersFile(unsigned short  int file_num, int time) {
+void Menu::updateLeadersFile(unsigned short int file_num, int time) {
 
     LeaderBoard leaderBoard(map_int_to_mazeWin(file_num)); // maybe put this private
 
@@ -238,6 +238,10 @@ void Menu::updateLeadersFile(unsigned short  int file_num, int time) {
 }
 
 //------------------------------------------------------------------------
+/**
+Asks the name of the winner until it is valid (max. 15 chars)
+@return valid winner name 
+*/
 std::string Menu::getPlayerName() {
     std::string name;
     bool validLen;
