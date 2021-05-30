@@ -1,8 +1,8 @@
 #include "LeaderBoard.h"
 
-short LeaderBoard::MAX_NAME_LENGTH = 15;
-short LeaderBoard::SPACE_BETWEEN_NAME_TIME = 2;
-short LeaderBoard::TIME_WIDTH = 4;
+const unsigned int LeaderBoard::MAX_NAME_LENGTH = 15;
+const unsigned int LeaderBoard::SPACE_BETWEEN_NAME_TIME = 2;
+const unsigned int LeaderBoard::TIME_WIDTH = 4;
 
 //------------------------------------------------------------------------
 LeaderBoard::LeaderBoard(const std::string& leaders_file) {
@@ -19,8 +19,8 @@ LeaderBoard::LeaderBoard(const std::string& leaders_file) {
 		int aTime;
 
 		getline(ifs, line);
-		aName = line.substr(0, static_cast<const unsigned int>(MAX_NAME_LENGTH));
-		aTime = stoi(line.substr(static_cast<const unsigned int>(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME))); //warning de overflow C26451
+		aName = line.substr(0, MAX_NAME_LENGTH);
+		aTime = stoi(line.substr(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME));
 
 		Person aPerson{ aName,aTime };
 		entries.push_back(aPerson);
@@ -32,7 +32,7 @@ LeaderBoard::~LeaderBoard() {
 	std::ofstream ofs(Maze_file, std::ofstream::trunc);
 
 	ofs << "Player          - Time\n"
-		<< "----------------------"; // Could make this disappear out << header
+		<< "----------------------";
 
 	for (const auto& i : entries)
 		ofs << '\n' << i;
@@ -46,19 +46,17 @@ void LeaderBoard::addToLeaderBoard(Person& aPerson) {
 
 //------------------------------------------------------------------------
 void LeaderBoard::showLeaderBoard() const {
-
-	if (entries.size() != 0) {
-		std::cout << "Player          - Time\n"
-			<< "----------------------"; // Could make this disappear out << header
-	}
-	else {
-		std::cout << "\t\tempty list\n";
+	std::cout << "\t\tPlayer          - Time\n"
+		<< "\t\t----------------------";
+	
+	if (entries.empty()) {
+		std::cout << "\n\t\tEmpty list!!! No Winners yet\n";
 	}
 
 	for (const auto& i : entries) {
 		std::cout << '\n' << i;
 	}
-	std::cout << '\n' << std::endl; // flush
+	std::cout << '\n' << std::endl;
 }
 
 //------------------------------------------------------------------------

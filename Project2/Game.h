@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Post.h"
 #include "Maze.h"
+#include "Fail_Procedure.h"
 
 // stl headers
 #include <cctype>
@@ -33,18 +34,6 @@ public:
 	@return true if player wins, otherwise false
 	*/
 	bool play();
-	
-	/**
-	Deals with invalid inputs, clearing the buffer or exiting the program if necessary
-	@return (none)
-	*/
-	static void isInvalid();
-
-	/**
-	Deals with input Ctrl-Z/D, exiting the program
-	@return (none)
-	*/
-	static void isExit();
 
 private:
 	
@@ -81,7 +70,7 @@ private:
 	@param apos - position
 	@return char (H,h,R,r,*,+,O, )
 	*/
-	char inPos(Position apos) const;
+	char inPosRobot(Position apos) const;
 
 	/**
 	Asks the user about the move until getting a valid key

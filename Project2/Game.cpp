@@ -49,6 +49,8 @@ void Game::showGameDisplay() const {
 		for (int j = 0; j < maze.getnumCols(); j++)
 		{
 			Position pos = {i,j};
+			
+			c = inPosRobot(pos);
 
 			// Note: order of display is important as we
 			//       want first to see the player and the 
@@ -58,7 +60,7 @@ void Game::showGameDisplay() const {
 			if (pos == player.getPosition()) {
 				std::cout << player.getSymbol();
 			}
-			else if ((c = inPos(pos)) != '\0')
+			else if (c != '\0')
 			{
 				std::cout << c; 
 			}
@@ -112,12 +114,12 @@ char Game::getMove() const{
 
 		move_key = (char)toupper(move_key);
 
+		valid = validMove(move_key);
 
 		if (std::cin.fail() || std::cin.peek() != '\n') {
 			isInvalid();
+			valid = false;
 		}
-
-		valid = validMove(move_key);
 
 		if (!valid) {
 			std::cerr << "\t\tNot a valid move!!!\n";
@@ -268,24 +270,10 @@ void Game::collideRobots(Robot& robot) {
 }
 
 //------------------------------------------------------------------------
-char Game::inPos(Position apos) const {
+char Game::inPosRobot(Position apos) const {
 	for (auto& i : robots) {
 		if (i.getPosition() == apos)
 			return i.getSymbol();
 	}
 	return '\0'; // returns NULL char
-}
-
-//------------------------------------------------------------------------
-void Game::isInvalid() {
-
-	isExit();
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-//------------------------------------------------------------------------
-void Game::isExit() {
-	if (std::cin.eof())
-		std::exit(0);
 }

@@ -46,9 +46,9 @@ public:
     */
     void sortLeaderBoard();
 
-    static short MAX_NAME_LENGTH;
-    static short SPACE_BETWEEN_NAME_TIME;
-    static short TIME_WIDTH;
+    static const unsigned int MAX_NAME_LENGTH;
+    static const unsigned int SPACE_BETWEEN_NAME_TIME;
+    static const unsigned int TIME_WIDTH;
 
 private:
     std::string Maze_file;
