@@ -25,8 +25,8 @@ class Game {
 public:
 	
 	/**
-	Opens the maze file and creats a maze object and objects for the obj. in
-	the file (posts, robots and player).
+	Opens the maze file and creates objects for the maze and the other 
+	elements in the file (posts, robots and player).
 	@param filename - the name of the maze file
 	*/
 	explicit Game(const std::string& filename);

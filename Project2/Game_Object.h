@@ -9,7 +9,7 @@ class Game_Object {
 public:
     
     /**
-    Creates a object for the Game
+    Creates a base object for the game.
     @param row - row of the object
     @param col - column of the object
     @param symbol - state of the object (alive/dead for player and robot, eletrified/not for posts)
