@@ -87,7 +87,7 @@ bool Game::play() {
 
 		if (collidePosts(player)) { 
 			showGameDisplay();
-			return player.isAlive(); // DO
+			return player.isAlive(); //won or lost
 		}
 
 		// check collidePlayer
@@ -219,6 +219,7 @@ bool Game::collidePlayer(Robot &robot) {
 	return false;
 }
 
+//------------------------------------------------------------------------
 void Game::moveRobots() {
 
 	static const short int PREV = -1; // to move to the previous line or column
@@ -238,7 +239,8 @@ void Game::moveRobots() {
 			Movement dInvChange{ -lineMove,-colMove };
 
 			robot.move(dChange); // move robot
-			if (collidePosts(robot)) { // if collision with electrified reverse
+
+			if (collidePosts(robot)) { // if it collided with electrified post, reverse move
 				robot.move(dInvChange);
 				continue; // no need to check other type of collision
 			}
@@ -252,26 +254,20 @@ void Game::moveRobots() {
 	}
 }
 
+//------------------------------------------------------------------------
 void Game::collideRobots(Robot& robot) {
 	for (auto& aRobot : robots) {
 		if (aRobot.getID() != robot.getID() && aRobot.getPosition() == robot.getPosition()) {
 			// checking if the 2 robots are not the same and if they are in the same position
 
-			/*if (aRobot.isAlive()) {
-				aliveRobots -= 2; // 2 deaths- MAGIC NUMBER
-			}
-			else
-			{
-				aliveRobots --;
-			}*/
 			robot.setAsDead();
 			aRobot.setAsDead();
 			return;
 		}
 	}
-
 }
 
+//------------------------------------------------------------------------
 char Game::inPos(Position apos) const {
 	for (auto& i : robots) {
 		if (i.getPosition() == apos)

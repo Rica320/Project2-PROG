@@ -1,9 +1,11 @@
 #include "Post.h"
 
+//------------------------------------------------------------------------
 bool Post::isElectrified() const {
-	return symbol == '*'; // TODO: IS THIS CONSIDERED A MAGIC NUMBER ???
+	return (symbol == '*');
 }
 
+//------------------------------------------------------------------------
 bool Post::isExit() const {
-	return symbol == 'O';
+	return (symbol == 'O');
 }

@@ -23,19 +23,16 @@ public:
 	
 	/**
 	Opens the maze file and creats a maze object and objects for the chars in
-	the file.
+	the file (posts, robots and player).
 	@param filename - the name of the maze file
 	*/
 	explicit Game(const std::string& filename);
-
-	// This constructor should initialize the Maze, the vector of Robots, and the Player,
-	// using the chars read from the file
 	
 	/**
 	Handles the game while the user is playing.
-	@return true if player wins, else false
+	@return true if player wins, otherwise false
 	*/
-	bool play(); // implements the game loop; returns true if player wins, false otherwise
+	bool play();
 	
 	/**
 	Deals with invalid inputs, clearing the buffer or exiting the program if necessary
@@ -57,13 +54,33 @@ private:
 	*/
 	void showGameDisplay() const;
 	
-	//bool addRobot(const Position& apos, Robot& aRobot);
-	// bool collidePlayer(Robot& aObj, Post& post); // check if aObj collided with post (and possibly set it as dead) returns true if the post is electrified
-	bool collidePlayer(Robot& robot); // check if human and aObj collided (and possibly set human as dead)
-	// bool collidePlayer(Player& player, Post& post);
+	/**
+	Checks if player and robot collided, setting player as dead if they did.
+	@param robot - the robot
+	@return true if they collided, false otherwise
+	*/
+	bool collidePlayer(Robot& robot);
+
+	/**
+	Template function to check if robots or player collided with posts.
+	@param aObj - robot or player
+	@return if post is electrified for robots, and win/lose for player
+	*/
 	template<typename T>
 	bool collidePosts(T& aObj); // DO a template with this
+
+	/**
+	Checks if each robot collided with other robots.
+	@param robot - the robot
+	@return true if they collided, false otherwise
+	*/
 	void collideRobots(Robot& robot);
+
+	/**
+	Returns char in a position
+	@param apos - position
+	@return char (H,h,R,r,*,+,O, )
+	*/
 	char inPos(Position apos) const;
 
 	/**
@@ -73,6 +90,11 @@ private:
 	*/
 	char getMove() const;
 	
+	/**
+	Moves each alive robot and handles the consequences of the move
+	@param robot - the robot
+	@return true if they collided, false otherwise
+	*/
 	void moveRobots();
 	
 	/**
@@ -89,19 +111,12 @@ private:
 	*/
 	static Movement ctom(char c) ;
 
-	// other methods, for example:
-	// to check if player is trying to move to a valid place
-	// to apply a valid playGame and check collisions
-	// to check if two robots collidePlayer (and possibly set them as dead)
-	// etc.
 private:
+
 	Maze maze;
 	Player player{};
 	std::vector<Robot> robots;
-	//std::map<Position, Robot&> RobotsMap;
-	//other attributes
-	// MAP POSITION WITH POSTS??
-	// MAP POSITION WITH ROBOTS??
+
 };
 
 template<typename T>
@@ -111,7 +126,6 @@ bool Game::collidePosts(T& aObj) {
 	if (posts.find(aObj.getPosition()) != posts.end()) {
 		if (typeid(T) == typeid(Robot)) {
 			aObj.setAsDead();
-			// aliveRobots--;
 			return posts.find(aObj.getPosition())->second.isElectrified();
 		}
 		else if(typeid(T) == typeid(Player))
@@ -119,11 +133,10 @@ bool Game::collidePosts(T& aObj) {
 			bool b = posts.find(aObj.getPosition())->second.isExit();
 			if (!b)
 				aObj.setAsDead();
-			return true; // a collision occurred, the result (win/loose) is in the player
+			return true; // a collision occurred, the result (win/lose) is in the player
 		}
 	}
 	return false;
 }
-
 
 #endif

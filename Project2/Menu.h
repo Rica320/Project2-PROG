@@ -41,7 +41,7 @@ public:
     @param file_to_open - the number of the maze
     @return the full name of the maze file
     */
-    static std::string map_int_to_maze(unsigned short int file_to_open); // static if somebody wants to use it outside
+    static std::string map_int_to_maze(unsigned short int file_to_open);
 
     /**
     Creates the name of the winners file, to be searched.
@@ -93,7 +93,6 @@ private:
     @return (none)
     */
     static void updateLeadersFile(unsigned short  int file_num, int time);
-    // making it static gives the opportunity to update the leaderboard at any moment
 
 private:
 	const std::string GAME_INTRO = (

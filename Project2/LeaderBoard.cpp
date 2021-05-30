@@ -4,9 +4,10 @@ short LeaderBoard::MAX_NAME_LENGTH = 15;
 short LeaderBoard::SPACE_BETWEEN_NAME_TIME = 2;
 short LeaderBoard::TIME_WIDTH = 4;
 
-LeaderBoard::LeaderBoard(const std::string& Maze_file) {
-	std::ifstream ifs(Maze_file);
-	this->Maze_file = Maze_file;
+//------------------------------------------------------------------------
+LeaderBoard::LeaderBoard(const std::string& leaders_file) {
+	std::ifstream ifs(leaders_file);
+	this->Maze_file = leaders_file;
 	if (ifs.fail())
 		return;
 
@@ -26,6 +27,7 @@ LeaderBoard::LeaderBoard(const std::string& Maze_file) {
 	}
 }
 
+//------------------------------------------------------------------------
 LeaderBoard::~LeaderBoard() {
 	std::ofstream ofs(Maze_file, std::ofstream::trunc);
 
@@ -37,10 +39,12 @@ LeaderBoard::~LeaderBoard() {
 	ofs.close();
 }
 
+//------------------------------------------------------------------------
 void LeaderBoard::addToLeaderBoard(Person& aPerson) {
 	entries.push_back(aPerson);
 }
 
+//------------------------------------------------------------------------
 void LeaderBoard::showLeaderBoard() const {
 
 	if (entries.size() != 0) {
@@ -57,6 +61,7 @@ void LeaderBoard::showLeaderBoard() const {
 	std::cout << '\n' << std::endl; // flush
 }
 
+//------------------------------------------------------------------------
 void LeaderBoard::sortLeaderBoard() {
 	std::sort(entries.begin(), entries.end());
 }

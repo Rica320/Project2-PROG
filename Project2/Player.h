@@ -9,9 +9,21 @@ class Player : public Game_Object
 public:
 	Player(int row, int col, char symbol);
 	Player() = default;
+
+	/**
+	Returns if the player is alive or dead
+	@return true if is alive, false otherwise
+	*/
 	bool isAlive() const;
+
+	/**
+	Sets the player as dead
+	@return (none)
+	*/
 	void setAsDead();
+
 private:
+
 	bool alive;
 
 };
