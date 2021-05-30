@@ -2,8 +2,8 @@
 // Created by ricar on 29/05/2021.
 //
 
-#ifndef PROJECT2_GAME_OBJECT_H
-#define PROJECT2_GAME_OBJECT_H
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
 
 #include "Position.h"
 
@@ -23,4 +23,4 @@ protected:
 };
 
 
-#endif //PROJECT2_GAME_OBJECT_H
+#endif //GAME_OBJECT_H

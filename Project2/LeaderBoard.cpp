@@ -19,7 +19,7 @@ LeaderBoard::LeaderBoard(const std::string& Maze_file) {
 
         getline(ifs, line);
         aName = line.substr(0, static_cast<const unsigned int>(MAX_NAME_LENGTH));
-        aTime = stoi(line.substr(static_cast<const unsigned int>(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME)));
+        aTime = stoi(line.substr(static_cast<const unsigned int>(MAX_NAME_LENGTH + SPACE_BETWEEN_NAME_TIME))); //warning de overflow C26451
 
         Person aPerson{aName,aTime};
         entries.push_back(aPerson);
