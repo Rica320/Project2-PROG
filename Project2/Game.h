@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Post.h"
 #include "Maze.h"
+#include "Fail_Procedure.h"
 
 // stl headers
 #include <cctype>
@@ -36,18 +37,6 @@ public:
 	@return true if player wins, else false
 	*/
 	bool play(); // implements the game loop; returns true if player wins, false otherwise
-	
-	/**
-	Deals with invalid inputs, clearing the buffer or exiting the program if necessary
-	@return (none)
-	*/
-	static void isInvalid();
-
-	/**
-	Deals with input Ctrl-Z/D, exiting the program
-	@return (none)
-	*/
-	static void isExit();
 
 private:
 	
@@ -56,7 +45,7 @@ private:
 	@return (none)
 	*/
 	void showGameDisplay() const;
-	
+
 	//bool addRobot(const Position& apos, Robot& aRobot);
 	// bool collidePlayer(Robot& aObj, Post& post); // check if aObj collided with post (and possibly set it as dead) returns true if the post is electrified
 	bool collidePlayer(Robot& robot); // check if human and aObj collided (and possibly set human as dead)
@@ -64,7 +53,7 @@ private:
 	template<typename T>
 	bool collidePosts(T& aObj); // DO a template with this
 	void collideRobots(Robot& robot);
-	char inPos(Position apos) const;
+	char inPosRobot(Position apos) const;
 
 	/**
 	Asks the user about the move until getting a valid key
@@ -89,19 +78,10 @@ private:
 	*/
 	static Movement ctom(char c) ;
 
-	// other methods, for example:
-	// to check if player is trying to move to a valid place
-	// to apply a valid playGame and check collisions
-	// to check if two robots collidePlayer (and possibly set them as dead)
-	// etc.
 private:
 	Maze maze;
 	Player player{};
 	std::vector<Robot> robots;
-	//std::map<Position, Robot&> RobotsMap;
-	//other attributes
-	// MAP POSITION WITH POSTS??
-	// MAP POSITION WITH ROBOTS??
 };
 
 template<typename T>
@@ -111,7 +91,6 @@ bool Game::collidePosts(T& aObj) {
 	if (posts.find(aObj.getPosition()) != posts.end()) {
 		if (typeid(T) == typeid(Robot)) {
 			aObj.setAsDead();
-			// aliveRobots--;
 			return posts.find(aObj.getPosition())->second.isElectrified();
 		}
 		else if(typeid(T) == typeid(Player))
@@ -124,6 +103,4 @@ bool Game::collidePosts(T& aObj) {
 	}
 	return false;
 }
-
-
 #endif

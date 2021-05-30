@@ -50,6 +50,8 @@ void Game::showGameDisplay() const {
 		{
 			Position pos = {i,j};
 
+			c = inPosRobot(pos);
+
 			// Note: order of display is important as we
 			//       want first to see the player and the 
 			//       robots and only then (if there is none)
@@ -58,7 +60,7 @@ void Game::showGameDisplay() const {
 			if (pos == player.getPosition()) {
 				std::cout << player.getSymbol();
 			}
-			else if ((c = inPos(pos)) != '\0')
+			else if (c != '\0')
 			{
 				std::cout << c; 
 			}
@@ -112,12 +114,13 @@ char Game::getMove() const{
 
 		move_key = (char)toupper(move_key);
 
+		valid = validMove(move_key);
+
 
 		if (std::cin.fail() || std::cin.peek() != '\n') {
 			isInvalid();
+			valid = false;
 		}
-
-		valid = validMove(move_key);
 
 		if (!valid) {
 			std::cerr << "\t\tNot a valid move!!!\n";
@@ -256,14 +259,6 @@ void Game::collideRobots(Robot& robot) {
 	for (auto& aRobot : robots) {
 		if (aRobot.getID() != robot.getID() && aRobot.getPosition() == robot.getPosition()) {
 			// checking if the 2 robots are not the same and if they are in the same position
-
-			/*if (aRobot.isAlive()) {
-				aliveRobots -= 2; // 2 deaths- MAGIC NUMBER
-			}
-			else
-			{
-				aliveRobots --;
-			}*/
 			robot.setAsDead();
 			aRobot.setAsDead();
 			return;
@@ -272,24 +267,10 @@ void Game::collideRobots(Robot& robot) {
 
 }
 
-char Game::inPos(Position apos) const {
+char Game::inPosRobot(Position apos) const {
 	for (auto& i : robots) {
 		if (i.getPosition() == apos)
 			return i.getSymbol();
 	}
 	return '\0'; // returns NULL char
-}
-
-//------------------------------------------------------------------------
-void Game::isInvalid() {
-
-	isExit();
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-//------------------------------------------------------------------------
-void Game::isExit() {
-	if (std::cin.eof())
-		std::exit(0);
 }

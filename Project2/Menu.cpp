@@ -19,7 +19,7 @@ void Menu::menuLoop() {
 
 		if (std::cin.fail() || std::cin.get() != '\n')
 		{
-			Game::isInvalid();
+			isInvalid();
 			mode = NOT_VALID_INPUT;	
 		}
 
@@ -29,7 +29,6 @@ void Menu::menuLoop() {
 			break;
 		case Play:
             menu_Play();
-			Robot::resetRobotCounter(); // this needs to disappear from here
 			break;
 		case Winners:
             menu_Winners();
@@ -37,7 +36,7 @@ void Menu::menuLoop() {
 		case Exit:
 			break;
 		default:
-			std::cerr << "Not a valid option. Try again !!\n";
+			std::cerr << "\t\tNot a valid option. Try again !!\n";
 			break;
 		}
 
@@ -82,37 +81,32 @@ void Menu::menu_Play() const{
     } else {
         std::cout << "\t\tGAME OVER! Better luck next time :)\n";
     }
+	Robot::resetRobotCounter(); // prepare the id of the robots for the next game 
 }
 
 //------------------------------------------------------------------------
 unsigned short Menu::getValidMaze()
 {
 	static const short MAX_MAZE_NUMBER = 99;
-
 	unsigned short f_num;
 	std::string mazeFileName;
-
 	bool validInput;
 
-	do
+	do // repeat this until the corresponding maze file is found or the user input is 0 (show menu again)
 	{
-		// repeat this until the corresponding maze file is found or the user input is 0 (show menu again)
-
 		std::cout << "\t\tTell us the maze to use (0 to go to menu)\n\t\t\t\t\t\t\t\t\t\t\t";
 		std::cin >> f_num; std::cout << "\n"; // Just for space management
 
 		validInput = true;
 
 		if (std::cin.fail() || std::cin.get() != '\n') {
-
-			Game::isInvalid();
+			isInvalid();
 			validInput = false;
 			std::cerr << "\t\tNot a valid Maze number. Try again !!\n\n";
 		}
 		else {
 			if (!f_num) // f_num == 0
 				return f_num;
-
 			else if (f_num > MAX_MAZE_NUMBER) {
 				validInput = false;
 				std::cerr << "\t\tNot a valid Maze number (1-99). Try again !!\n\n";
@@ -193,10 +187,10 @@ std::string Menu::getPlayerName() {
         std::cin >> std::ws;
         getline(std::cin, name); std::cout << "\n"; // Just for space management
 
-		Game::isExit();
+		isExit();
 
         validLen = true;
-        if (name.size() > LeaderBoard::MAX_NAME_LENGTH) // TODO: IS IT A WARNING ???
+        if (name.size() > (size_t)LeaderBoard::MAX_NAME_LENGTH)
         {
             validLen = false;
             std::cerr << "\t\tToo long!! Try again.\n";

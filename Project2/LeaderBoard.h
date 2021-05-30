@@ -21,9 +21,9 @@ public:
     void addToLeaderBoard(Person& aPerson); // NOT const(par.) only because we could implement methods to delete lines
     void showLeaderBoard() const;
     void sortLeaderBoard();
-    static short MAX_NAME_LENGTH;
-    static short SPACE_BETWEEN_NAME_TIME;
-    static short TIME_WIDTH;
+    static const unsigned int MAX_NAME_LENGTH;
+    static const unsigned int SPACE_BETWEEN_NAME_TIME;
+    static const unsigned int TIME_WIDTH;
 private:
     std::string Maze_file;
     std::vector<Person> entries;

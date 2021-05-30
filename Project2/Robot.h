@@ -16,10 +16,9 @@ public:
 	static void resetRobotCounter() { robotCounter = 0; };
 
 private:
-	static int robotCounter; //used to attribute automatically the id to the robots
+	static int robotCounter; //used to attribute automatically the id to the robots 
 	int id;
 	bool alive;
-	// other attributes (?)
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Robot.h"
 #include "LeaderBoard.h"
+#include "Fail_Procedure.h"
 
 // stl headers
 #include <iostream>

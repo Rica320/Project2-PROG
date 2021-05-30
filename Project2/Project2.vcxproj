@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Fail_Procedure.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game_Object.cpp">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
@@ -153,6 +154,7 @@
     <ClCompile Include="Robot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fail_Procedure.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game_Object.h">
       <DeploymentContent>false</DeploymentContent>
