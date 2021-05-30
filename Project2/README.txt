@@ -22,13 +22,14 @@ PROGRAM DEVELOPMENT STATE:
   Também se assumiu que quando os robôs vivos R colidem com robôs mortos/presos r são representados por um único carater r,
   algo que não estava muito percetível nas especificações do trabalho.
    
+  Finalmente, partiu-se do princípio que
   Apenas métodos utilizados foram implementados no código submetido.
   
 MAIN DIFFICULTIES: 
 
    A maior dificuldade sentida foi na transição para um paradigma de linguagem orientada por objetos, mudança que obviamente nos 
    obrigou a reconstruir grande parte do código do outro projeto. Uma vez que este trabalho era centrado em OOP, optámos por 
-   usar quase unicamente classes, fazendo uma class "Menu", que ficou com a responsiblidade de mapear inputs para ficheiros, chamar 
-   as diversas opções do menu, etc. Uma dessas opções lida com a LeaderBoard que tem como responsabilidade gerir os ficheiros dos 
-   vencedores. Foi ainda criada outra classe, Game_Object, da qual os restantes objetos da maze derivam: os postes, robô e player.
+   usar quase unicamente classes, fazendo: uma classe "Menu", que ficou com a responsiblidade de mapear inputs para ficheiros, chamar 
+   as diversas opções do menu, etc; outra classe, LeaderBoard, que tem como responsabilidade gerir os ficheiros dos vencedores; a 
+   classe, Game_Object, da qual os restantes objetos do jogo derivam (os postes, os robôs e o player).
    
