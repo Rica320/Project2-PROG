@@ -1,5 +1,6 @@
 #include "Game.h"
 
+//------------------------------------------------------------------------
 Game::Game(const std::string& filename) { 
 	std::ifstream ifs(filename);
 
@@ -37,6 +38,7 @@ Game::Game(const std::string& filename) {
 	ifs.close();
 }
 
+//------------------------------------------------------------------------
 void Game::showGameDisplay() const {
 
 	char c;
@@ -72,6 +74,7 @@ void Game::showGameDisplay() const {
 	}
 }
 
+//------------------------------------------------------------------------
 bool Game::play() {
 
 	showGameDisplay();
@@ -97,6 +100,7 @@ bool Game::play() {
 	return player.isAlive();
 }
 
+//------------------------------------------------------------------------
 char Game::getMove() const{
 	char move_key;
 	bool valid;
@@ -110,12 +114,7 @@ char Game::getMove() const{
 
 
 		if (std::cin.fail() || std::cin.peek() != '\n') {
-			if (std::cin.eof()) {
-					std::exit(0);
-			}
-
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			isInvalid();
 		}
 
 		valid = validMove(move_key);
@@ -129,6 +128,7 @@ char Game::getMove() const{
 	return move_key;
 }
 
+//------------------------------------------------------------------------
 bool Game::validMove(char c) const {
 
 	std::map<Position, Post> posts = maze.getPosts();
@@ -156,6 +156,7 @@ bool Game::validMove(char c) const {
     return true;
 }
 
+//------------------------------------------------------------------------
 Movement Game::ctom(char c) {
 	// map char to index movement
     // TODO MAKE THIS SHORTER
@@ -209,6 +210,7 @@ Movement Game::ctom(char c) {
 	return mov;
 }
 
+//------------------------------------------------------------------------
 bool Game::collidePlayer(Robot &robot) {
 	if (robot.getPosition() == player.getPosition()) {
 		player.setAsDead();
@@ -276,4 +278,18 @@ char Game::inPos(Position apos) const {
 			return i.getSymbol();
 	}
 	return '\0'; // returns NULL char
+}
+
+//------------------------------------------------------------------------
+void Game::isInvalid() {
+
+	isExit();
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+//------------------------------------------------------------------------
+void Game::isExit() {
+	if (std::cin.eof())
+		std::exit(0);
 }
