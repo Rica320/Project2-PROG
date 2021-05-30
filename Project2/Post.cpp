@@ -2,10 +2,10 @@
 
 //------------------------------------------------------------------------
 bool Post::isElectrified() const {
-	return (symbol == '*');
+	return (symbol == elecPost);
 }
 
 //------------------------------------------------------------------------
 bool Post::isExit() const {
-	return (symbol == 'O');
+	return (symbol == exitGate);
 }
