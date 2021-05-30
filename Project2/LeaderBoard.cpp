@@ -56,7 +56,7 @@ void LeaderBoard::showLeaderBoard() const {
 	}
 
 	for (const auto& i : entries) {
-		std::cout << '\n' << i;
+		std::cout << "\n\t\t" << i;
 	}
 	std::cout << '\n' << std::endl;
 }

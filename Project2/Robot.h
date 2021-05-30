@@ -33,7 +33,6 @@ public:
 	*/
 	void setAsDead();
 
-	// static int getRobotCounter() { return robotCounter; };
 	static void resetRobotCounter() { robotCounter = 0; };
 
 	static const char deadRobot = 'r';

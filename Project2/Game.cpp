@@ -14,7 +14,7 @@ Game::Game(const std::string& filename) {
 	Maze maze_temp(nRows, nCols);
 	this->maze = maze_temp;
 
-	ifs.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Maybe useless
+	ifs.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	for (int i = 0; i < nRows; i++)
 	{
@@ -275,5 +275,5 @@ char Game::inPosRobot(Position apos) const {
 		if (i.getPosition() == apos)
 			return i.getSymbol();
 	}
-	return '\0'; // returns NULL char
+	return '\0'; // returns NULL char (int) = 0 
 }

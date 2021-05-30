@@ -25,7 +25,7 @@ class Game {
 public:
 	
 	/**
-	Opens the maze file and creats a maze object and objects for the chars in
+	Opens the maze file and creats a maze object and objects for the obj. in
 	the file (posts, robots and player).
 	@param filename - the name of the maze file
 	*/
@@ -55,22 +55,22 @@ private:
 	/**
 	Template function to check if robots or player collided with posts.
 	@param aObj - robot or player
-	@return if post is electrified for robots, and win/lose for player
+	@return if post is electrified for robots, and true for the player if there is a collision
 	*/
 	template<typename T>
 	bool collidePosts(T& aObj); // DO a template with this
 
 	/**
-	Checks if each robot collided with other robots.
+	Checks if a robot collided with other robots.
 	@param robot - the robot
 	@return true if they collided, false otherwise
 	*/
 	void collideRobots(Robot& robot);
 
 	/**
-	Returns char in a position
+	Returns char in a position if robot is present
 	@param apos - position
-	@return char (H,h,R,r,*,+,O, )
+	@return char (R,r or '\0' )
 	*/
 	char inPosRobot(Position apos) const;
 
@@ -84,14 +84,13 @@ private:
 	/**
 	Moves each alive robot and handles the consequences of the move
 	@param robot - the robot
-	@return true if they collided, false otherwise
+	@return void
 	*/
 	void moveRobots();
 	
 	/**
-	Asks the user about the move until getting a valid key
-	(moving key to a place without (r) or (+) or leave (see isInvalid) ).
-	@return the key chosen (Q, W, E, A, S, D, Z, X, C)
+	Checks if the move is valid
+	@return true if valid false otherwise
 	*/
 	bool validMove(char c) const;
 	

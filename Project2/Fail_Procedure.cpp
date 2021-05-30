@@ -5,13 +5,13 @@
 //------------------------------------------------------------------------
 void isInvalid() {
 
-    isExit();
+    isEOF();
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 //------------------------------------------------------------------------
-void isExit() {
+void isEOF() {
     if (std::cin.eof())
         std::exit(0);
 }

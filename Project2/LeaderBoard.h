@@ -26,7 +26,7 @@ public:
     explicit LeaderBoard(const std::string& leaders_file);
 
     /**
-    Stores all the winners in a file.
+    Stores all the winners in a file before destruction.
     */
     ~LeaderBoard();
 
@@ -35,7 +35,7 @@ public:
     @param aPerson - winner to add
     @return (none)
     */
-    void addToLeaderBoard(Person& aPerson); // NOT const(par.) only because we could implement methods to delete lines
+    void addToLeaderBoard(Person& aPerson);
 
     /**
     Displays the list of winners if not empty, else "empty list".

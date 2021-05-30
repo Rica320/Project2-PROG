@@ -9,7 +9,7 @@ class Game_Object {
 public:
     
     /**
-    Creates a object for the robot, the player or the post with its attributes.
+    Creates a object for the Game
     @param row - row of the object
     @param col - column of the object
     @param symbol - state of the object (alive/dead for player and robot, eletrified/not for posts)
@@ -18,7 +18,7 @@ public:
     Game_Object() = default;
 
     /**
-    Gets object symbol (lower case for dead, or upper case for alive).
+    Gets object symbol (lower case if dead, or upper case if alive).
     @return char for robot or player state
     */
     char getSymbol() const;

@@ -28,7 +28,7 @@ public:
 	Gets posts.
 	@return posts on the maze
 	*/
-	std::map<Position, Post>& getPosts();// Not const cus' of the possibility of override from robots - see if it is necessary
+	std::map<Position, Post>& getPosts();// Not const cus' of the possibility of override from robots 
 
 	/**
 	Adds post in a certain position to the maze posts.
@@ -52,8 +52,6 @@ public:
 
 private:
 	int numRows{}, numCols{};
-	// data structure that represents the posts
-	// vector or maze (await for response)
 	std::map<Position, Post> posts;
 };
 

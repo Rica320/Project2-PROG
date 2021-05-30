@@ -172,7 +172,7 @@ std::string Menu::map_int_to_mazeWin(unsigned short int file_to_open) {
 //------------------------------------------------------------------------
 void Menu::updateLeadersFile(unsigned short int file_num, int time) {
 
-    LeaderBoard leaderBoard(map_int_to_mazeWin(file_num)); // maybe put this private
+    LeaderBoard leaderBoard(map_int_to_mazeWin(file_num));
 
     Person newPerson{getPlayerName(), time};
     leaderBoard.addToLeaderBoard(newPerson);
@@ -191,7 +191,7 @@ std::string Menu::getPlayerName() {
         std::cin >> std::ws;
         getline(std::cin, name); std::cout << "\n"; // Just for space management
 
-		isExit();
+		isEOF();
 
         validLen = true;
         if (name.size() > (size_t)LeaderBoard::MAX_NAME_LENGTH)
