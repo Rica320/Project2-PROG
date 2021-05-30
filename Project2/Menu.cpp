@@ -189,7 +189,7 @@ std::string Menu::getPlayerName() {
     {
         std::cout << "\t\tWhat's your name? (max.15)\n\t\t\t\t\t\t\t\t\t\t\t";
         std::cin >> std::ws;
-        getline(std::cin, name); std::cout << "\n"; // Just for space management
+        std::getline(std::cin, name); std::cout << "\n"; // Just for space management
 
 		isEOF();
 
