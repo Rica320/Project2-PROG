@@ -58,7 +58,7 @@ void Menu::menu_Rules() const{
 
 	while (!ifs.eof())
 	{
-		getline(ifs, line);
+		std::getline(ifs, line);
 		std::cout << line << std::endl;
 	}
 }

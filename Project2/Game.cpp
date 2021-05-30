@@ -224,7 +224,6 @@ bool Game::collidePlayer(Robot &robot) {
 
 //------------------------------------------------------------------------
 void Game::moveRobots() {
-
 	static const short int PREV = -1; // to move to the previous line or column
 	static const short int FOLL = 1; // to move to the following line or column
 	static const short int SAME = 0; // to stay in the same line or column
@@ -236,7 +235,6 @@ void Game::moveRobots() {
 		if (robot.isAlive()) {
 			int lineMove = (player.getRow() >= robot.getRow()) ? ((player.getRow() == robot.getRow()) ? SAME : FOLL) : PREV;
 			int colMove = (player.getCol() >= robot.getCol()) ? ((player.getCol() == robot.getCol()) ? SAME : FOLL) : PREV;
-
 
 			Movement dChange{ lineMove,colMove };
 			Movement dInvChange{ -lineMove,-colMove };
