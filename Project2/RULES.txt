@@ -1,4 +1,4 @@
-					Robots Game
+						Robots Game
 		Get the Human to survive through the high-voltage maze and to escape from it
 		Run away from the chasing robots, without touching the eletrified posts
 		To win: get the robots to hit themselves or the posts, or reach the gate!

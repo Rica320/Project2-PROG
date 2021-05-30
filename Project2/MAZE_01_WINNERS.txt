@@ -1,3 +1,2 @@
 Player          - Time
 ----------------------
-best_winner     -   32

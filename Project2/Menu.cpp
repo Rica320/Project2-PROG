@@ -99,7 +99,7 @@ void Menu::menu_Play() const{
 		std::cout << WIN_MESSAGE;
         updateLeadersFile(file_num, (int) timePlayer);
     } else {
-        std::cout << "GAME OVER! Better luck next time :)\n";
+        std::cout << "\t\tGAME OVER! Better luck next time :)\n";
     }
 }
 

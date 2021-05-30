@@ -43,6 +43,7 @@ void Game::showGameDisplay() const {
 
 	for (int i = 0; i < maze.getnumRows(); i++)
 	{
+		std::cout << "\t\t";
 		for (int j = 0; j < maze.getnumCols(); j++)
 		{
 			Position pos = {i,j};

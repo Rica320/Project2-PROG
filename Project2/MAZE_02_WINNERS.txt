@@ -1,4 +1,6 @@
 Player          - Time
 ----------------------
+Mariana         -   22
+Ricardo         -   25
+Ricardo         -   33
 Mariana         -   43
-                -  101
